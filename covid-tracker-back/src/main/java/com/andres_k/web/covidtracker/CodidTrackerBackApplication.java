@@ -1,4 +1,4 @@
-package com.andres_k.web.codidtracker;
+package com.andres_k.web.covidtracker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
