@@ -32,13 +32,14 @@ public class CovidDataController {
 
     @RequestMapping(value = "/getTotal", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<?> getTotal(@RequestParam(required = false) String date) {
+    public ResponseEntity<?> getTotal(@RequestParam(required = false) String date, @RequestParam(required = false) String state, @RequestParam(required = false) String country) {
+
         try {
             if (TString.isNull(date)) {
-                List<CovidTotal> total = this.covidDataService.getTotal();
+                List<CovidTotal> total = this.covidDataService.getTotal(state, country);
                 return new ResponseEntity<>(total, HttpStatus.OK);
             } else {
-                CovidTotal total = this.covidDataService.getTotalAt(date, true);
+                CovidTotal total = this.covidDataService.getTotalAt(date, state, country, true);
                 return new ResponseEntity<>(total, HttpStatus.OK);
             }
         } catch (Exception ex) {

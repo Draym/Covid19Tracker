@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CovidTotalRepository extends JpaRepository<CovidTotal, Long> {
-    CovidTotal findDistinctByDate(String date);
+    CovidTotal findDistinctByDateAndStateAndCountry(String date, String state, String country);
 }

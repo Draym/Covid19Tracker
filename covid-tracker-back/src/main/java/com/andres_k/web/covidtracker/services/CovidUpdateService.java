@@ -56,7 +56,7 @@ public class CovidUpdateService {
         // Archive
         List<CovidData> archive = this.covidDataRepository.findAll();
         TFiles.writeInFile("covid_data_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy--HH-mm")), TJson.toString(archive));
-        this.covidDataRepository.deleteAll();
+        this.covidDataRepository.deleteAllWithQuery();
 
         this.saveValidLocations(data, true);
         this.saveValidDates(data, true);

@@ -2,7 +2,6 @@ package com.andres_k.web.covidtracker.services;
 
 import com.andres_k.web.covidtracker.dao.CovidDataRepository;
 import com.andres_k.web.covidtracker.dao.CovidTotalRepository;
-import com.andres_k.web.covidtracker.dao.DataUpdatedRepository;
 import com.andres_k.web.covidtracker.models.CovidData;
 import com.andres_k.web.covidtracker.models.CovidTotal;
 import com.andres_k.web.covidtracker.models.ValidDate;
@@ -27,16 +26,16 @@ public class CovidDataService {
         this.validDateService = validDateService;
     }
 
-    public CovidTotal getTotalAt(String date, boolean calculateInc) {
+    public CovidTotal getTotalAt(String date, String state, String country, boolean calculateInc) {
         if (!this.validDateService.dateIsValid(date)) {
             date = this.validDateService.findLastValidDate(date);
             if (date == null)
                 return null;
         }
-        CovidTotal total = this.covidTotalRepository.findDistinctByDate(date);
+        CovidTotal total = this.covidTotalRepository.findDistinctByDateAndStateAndCountry(date, state, country);
 
         if (total == null) {
-            List<CovidData> data = this.covidDataRepository.findAllByDate(date);
+            List<CovidData> data = this.covidDataRepository.findAllByDateAndStateAndCountry(date, state, country);
 
             if (data.isEmpty()) {
                 return null;
@@ -44,25 +43,25 @@ public class CovidDataService {
             Integer totalConfirmed = 0;
             Integer totalDeath = 0;
             Integer totalRecovered = 0;
-            double incConfirmed = 0d;
-            double incDeath = 0d;
-            double incRecovered = 0d;
+            Integer addConfirmed = 0;
+            Integer addDeath = 0;
+            Integer addRecovered = 0;
 
             for (CovidData item : data) {
                 totalConfirmed += item.getConfirmed();
-                totalDeath += item.getDeath();
                 totalRecovered += item.getRecovered();
+                totalDeath += item.getDeath();
             }
             if (calculateInc) {
-                CovidTotal previous = this.getTotalAt(TDate.minusDay(date, 1), false);
+                CovidTotal previous = this.getTotalAt(TDate.minusDay(date, 1), state, country, false);
                 if (previous != null) {
-                    incConfirmed = (totalConfirmed - previous.getTotalConfirmed()) * 100d / totalConfirmed;
-                    incDeath = (totalDeath - previous.getTotalDeath()) * 100d / totalDeath;
-                    incRecovered = (totalRecovered - previous.getTotalRecovered()) * 100d / totalRecovered;
+                    addConfirmed = totalConfirmed - previous.getTotalConfirmed();
+                    addRecovered = totalRecovered - previous.getTotalRecovered();
+                    addDeath = totalDeath - previous.getTotalDeath();
                 }
             }
 
-            total = new CovidTotal(totalRecovered, totalConfirmed, totalDeath, incRecovered, incConfirmed, incDeath, date);
+            total = new CovidTotal(state, country, totalConfirmed, totalRecovered, totalDeath, addConfirmed, addRecovered, addDeath, date);
 
             if (calculateInc) {
                 this.covidTotalRepository.save(total);
@@ -71,13 +70,13 @@ public class CovidDataService {
         return total;
     }
 
-    public List<CovidTotal> getTotal() {
+    public List<CovidTotal> getTotal(String state, String country) {
         List<ValidDate> dates = this.validDateService.findAll();
         List<CovidTotal> total = new ArrayList<>();
 
         dates.sort(new ValidDateComparator());
         for (ValidDate date : dates) {
-            total.add(this.getTotalAt(date.getDate(), true));
+            total.add(this.getTotalAt(date.getDate(), state, country, true));
         }
         return total;
     }

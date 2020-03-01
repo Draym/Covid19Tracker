@@ -11,6 +11,10 @@ public class CovidTotal {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "state")
+    private String state;
+    @Column(name = "country")
+    private String country;
     @NotNull
     @Column(name = "total_recovered")
     private Integer totalRecovered;
@@ -20,6 +24,15 @@ public class CovidTotal {
     @NotNull
     @Column(name = "total_death")
     private Integer totalDeath;
+    @NotNull
+    @Column(name = "add_recovered")
+    private Integer addRecovered;
+    @NotNull
+    @Column(name = "add_confirmed")
+    private Integer addConfirmed;
+    @NotNull
+    @Column(name = "add_death")
+    private Integer addDeath;
     @NotNull
     @Column(name = "inc_recovered")
     private Double incRecovered;
@@ -37,13 +50,18 @@ public class CovidTotal {
 
     }
 
-    public CovidTotal(Integer totalRecovered, Integer totalConfirmed, Integer totalDeath, Double incRecovered, Double incConfirmed, Double incDeath, String date) {
+    public CovidTotal(String state, String country, Integer totalConfirmed, Integer totalRecovered, Integer totalDeath, Integer addConfirmed, Integer addRecovered, Integer addDeath, String date) {
+        this.state = state;
+        this.country = country;
         this.totalRecovered = totalRecovered;
         this.totalConfirmed = totalConfirmed;
         this.totalDeath = totalDeath;
-        this.incRecovered = incRecovered;
-        this.incConfirmed = incConfirmed;
-        this.incDeath = incDeath;
+        this.addRecovered = addRecovered;
+        this.addConfirmed = addConfirmed;
+        this.addDeath = addDeath;
+        this.incRecovered = addRecovered * 100d / (totalRecovered - addRecovered);
+        this.incConfirmed = addConfirmed * 100d / (totalConfirmed - addConfirmed);
+        this.incDeath = addDeath * 100d / (totalDeath - addDeath);
         this.date = date;
     }
 
@@ -109,5 +127,45 @@ public class CovidTotal {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Integer getAddRecovered() {
+        return addRecovered;
+    }
+
+    public void setAddRecovered(Integer addRecovered) {
+        this.addRecovered = addRecovered;
+    }
+
+    public Integer getAddConfirmed() {
+        return addConfirmed;
+    }
+
+    public void setAddConfirmed(Integer addConfirmed) {
+        this.addConfirmed = addConfirmed;
+    }
+
+    public Integer getAddDeath() {
+        return addDeath;
+    }
+
+    public void setAddDeath(Integer addDeath) {
+        this.addDeath = addDeath;
     }
 }

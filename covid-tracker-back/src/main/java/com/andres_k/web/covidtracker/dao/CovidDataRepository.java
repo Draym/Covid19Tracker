@@ -16,6 +16,8 @@ public interface CovidDataRepository extends JpaRepository<CovidData, Long> {
     @Query("delete from CovidData")
     void deleteAllWithQuery();
 
+    CovidData findDistinctByDateAndStateAndCountry(String date, String state, String country);
+
     @Query("SELECT c FROM CovidData c WHERE (:date is null or c.date = :date) and (:state is null or c.state = :state) and (:country is null or c.country = :country)")
     List<CovidData> findAllByDateAndStateAndCountry(String date, String state, String country);
 
