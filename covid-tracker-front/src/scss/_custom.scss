@@ -194,7 +194,7 @@ a {
 }
 
 #b-states {
-  height: 610px;
+  height: 605px;
 }
 
 #b-charts {
@@ -203,6 +203,10 @@ a {
 
 #b-recovered, #b-death, #b-confirmed {
   height: 160px;
+}
+
+#b-map .app-block {
+  padding: 0;
 }
 
 @media (max-width: 992px) {
@@ -223,7 +227,7 @@ a {
 }
 
 .red-light {
-  color: rgb(255, 23, 23);
+  color: #FF1717;
 }
 
 .green {
@@ -237,6 +241,11 @@ a {
 .white {
   color: white;
 }
+
+.orange {
+  color: #ff8c00;
+}
+
 
 /*
 ** SIZES
@@ -377,18 +386,52 @@ a {
 
 .esri-popup__main-container {
   width: 340px !important;
+  background-color: #4e4e4e !important;
 }
 
 .esri-popup__main-container ul {
   list-style: none;
+  font-size: 15px;
 }
 
 .esri-popup__header-title {
+  color: white !important;
   font-size: 20px !important;
   padding: 0 !important;
   margin-left: 15px !important;
 }
 
+.esri-popup__header-title:hover {
+  background-color: gray !important;
+}
+
 .esri-popup__footer {
   display: none !important;
+}
+
+.esri-attribution {
+  background: none !important;
+}
+
+.esri-attribution div, .esri-attribution a {
+  color: white !important;
+}
+
+.esri-popup__content {
+  background-color: #2d2d2d !important;
+  border-radius: 2px;
+}
+
+.esri-feature {
+  height: 100%;
+  padding-top: 10px;
+  color: white !important;
+  background-color: inherit !important;
+}
+
+.esri-ui-corner {
+  bottom: 0 !important;
+  right: 0 !important;
+  top: unset !important;
+  left: unset !important;
 }

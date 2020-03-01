@@ -58,6 +58,7 @@ class BlocDateSlider extends CDataLoader {
                              onChange={this.onDateSliderChange}
                              value={this.state.data.length - 1} position={"bottom"}
                              sliderLabelStart={this.state.data[0].date}
+                             sliderLabelMid="Date picker"
                              sliderLabelEnd={this.state.data[this.state.data.length - 1].date}
                              min={0}
                              max={this.state.data.length - 1}
