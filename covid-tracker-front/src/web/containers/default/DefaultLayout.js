@@ -1,5 +1,4 @@
 import React, {Component, Suspense} from "react";
-import AppHeader from "./AppHeader";
 import {Container} from 'reactstrap';
 import {Redirect, Route, Switch} from "react-router-dom";
 import AuthUtils from "../../../utils/auth/AuthUtils";

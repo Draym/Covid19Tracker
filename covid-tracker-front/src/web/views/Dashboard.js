@@ -1,5 +1,5 @@
 import React from "react";
-import BlocCovStats from "./dashboard/BlocCovStats";
+import BlocCovidStats from "./dashboard/BlocCovidStats";
 import BlocLocations from "./dashboard/BlocLocations";
 import BlocMap from "./dashboard/BlocMap";
 import BlocSocial from "./dashboard/BlocSocial";
@@ -62,7 +62,7 @@ class Dashboard extends CDataLoader {
                                         location={TString.isNull(this.state.location.state) ? this.state.location.country : this.state.location.state}/>
                         </div>
                         <div className="row">
-                            <BlocCovStats parameters={{
+                            <BlocCovidStats parameters={{
                                 date: this.state.currentDate,
                                 state: this.state.location.state,
                                 country: this.state.location.country

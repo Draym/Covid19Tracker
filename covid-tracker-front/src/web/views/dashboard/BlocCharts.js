@@ -2,7 +2,6 @@ import React from "react";
 import CBlock from "../../components/CBlock";
 import CDataLoader from "../../components/CDataLoader";
 import {ApiEndpoint} from "../../../utils/api/ApiEndpoint";
-import TString from "../../../utils/TString";
 
 const propTypes = {
 };

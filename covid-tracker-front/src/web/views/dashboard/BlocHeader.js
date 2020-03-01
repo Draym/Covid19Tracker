@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import CBlock from "../../components/CBlock";
 import PropTypes from "prop-types";
-import CImg from "../../components/CImage/CImg";
+import CImg from "../../components/CImg";
 import {Library} from "../../../utils/storage/ImgLibrary";
 
 const propTypes = {

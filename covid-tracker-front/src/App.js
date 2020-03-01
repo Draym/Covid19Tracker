@@ -3,7 +3,6 @@ import './App.scss';
 import DefaultLayout from "./web/containers/default/DefaultLayout";
 import {BrowserRouter} from 'react-router-dom';
 import Navbar from "./web/containers/default/Navbar";
-import AppFooter from "./web/containers/default/AppFooter";
 
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {faHandHoldingHeart, faChevronDown, faChevronUp} from '@fortawesome/free-solid-svg-icons';

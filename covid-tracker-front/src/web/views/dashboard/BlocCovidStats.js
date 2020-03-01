@@ -3,7 +3,6 @@ import CBlock from "../../components/CBlock";
 import {ApiEndpoint} from "../../../utils/api/ApiEndpoint";
 import CDataLoader from "../../components/CDataLoader";
 import TPrettyNbr from "../../../utils/TPrettyNbr";
-import TMath from "../../../utils/TMath";
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -12,7 +11,7 @@ const propTypes = {
 
 const defaultProps = {};
 
-class BlocCovStats extends CDataLoader {
+class BlocCovidStats extends CDataLoader {
     constructor(props) {
         super(props);
         this.initState({
@@ -62,7 +61,7 @@ class BlocCovStats extends CDataLoader {
     }
 }
 
-BlocCovStats.defaultProps = defaultProps;
-BlocCovStats.propTypes = propTypes;
+BlocCovidStats.defaultProps = defaultProps;
+BlocCovidStats.propTypes = propTypes;
 
-export default BlocCovStats;
+export default BlocCovidStats;

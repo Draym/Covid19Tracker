@@ -12,6 +12,7 @@
     "@testing-library/react": "^9.4.1",
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
+    "esri-loader": "^2.13.0",
     "http-proxy-middleware": "^1.0.0",
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",

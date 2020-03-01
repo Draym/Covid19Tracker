@@ -252,6 +252,7 @@ a {
 /*
 ** UL LIST
  */
+
 .ul-states {
   list-style: none;
   padding: 0;
@@ -273,6 +274,7 @@ a {
 .ul-states li.ul-opt-info.active.open p {
   background-color: rgba(163, 255, 242, 0.35);
 }
+
 .ul-states li.ul-opt-info.active.open p:hover {
   background-color: rgba(163, 255, 242, 0.58);
 }
@@ -364,4 +366,29 @@ a {
 
 .slider-max {
   float: right;
+}
+
+/*
+** MAP
+ */
+.webmap {
+  height: 100%;
+}
+
+.esri-popup__main-container {
+  width: 340px !important;
+}
+
+.esri-popup__main-container ul {
+  list-style: none;
+}
+
+.esri-popup__header-title {
+  font-size: 20px !important;
+  padding: 0 !important;
+  margin-left: 15px !important;
+}
+
+.esri-popup__footer {
+  display: none !important;
 }

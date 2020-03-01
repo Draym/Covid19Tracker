@@ -5,7 +5,6 @@ import {ApiEndpoint} from "../../../utils/api/ApiEndpoint";
 import CSlider from "../../components/CSlider";
 import PropTypes from 'prop-types';
 import TDate from "../../../utils/TDate";
-import TString from "../../../utils/TString";
 
 const propTypes = {
     onDateChange: PropTypes.func.isRequired,
