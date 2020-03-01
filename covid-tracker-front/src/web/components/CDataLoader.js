@@ -13,7 +13,9 @@ class CDataLoader extends CComponent {
         this.isLoading = this.isLoading.bind(this);
         this.initializeData = this.initializeData.bind(this);
         this.loadDataAndInitialize = this.loadDataAndInitialize.bind(this);
-        if (!(typeof this.formatData === "function")) {
+        if (!(typeof this.formatData === "function") ||
+            !(typeof this.getParameters === "function") ||
+            !(typeof this.getEndpoint === "function")) {
             throw new TypeError("Must override method");
         }
     }
@@ -27,7 +29,7 @@ class CDataLoader extends CComponent {
 
     componentDidMount() {
         console.log("MOUNT LOAD");
-        this.loadDataAndInitialize(this.state.parameters);
+        this.loadDataAndInitialize(this.getParameters());
     }
 
     isLoading(value, error) {
@@ -42,8 +44,8 @@ class CDataLoader extends CComponent {
 
     loadDataAndInitialize(parameters) {
         this.isLoading(true);
-        console.log("go: ", this.state.endpoint, parameters);
-        HttpUtils.GET(process.env.REACT_APP_SERVER_URL, this.state.endpoint, parameters, function (data) {
+        console.log("go: ", this.getEndpoint(), parameters);
+        HttpUtils.GET(process.env.REACT_APP_SERVER_URL, this.getEndpoint(), parameters, function (data) {
             if (data) {
                 this.initializeData(data);
             } else {

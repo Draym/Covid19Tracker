@@ -171,6 +171,10 @@ a {
   margin-left: 10px;
 }
 
+#b-lastupdate .app-block {
+  padding-left: 10px;
+}
+
 #b-header .app-block {
   display: flex;
 }
@@ -178,6 +182,7 @@ a {
 #b-header .pre-title {
   display: flex;
 }
+
 #b-header .pre-title img {
   margin: 0 8px 0 3px;
 }
@@ -261,12 +266,27 @@ a {
   color: rgba(255, 255, 255, 0.80);
 }
 
-.ul-states li.ul-opt-info.active {
+.ul-states li.ul-opt-info.open {
   background-color: transparent !important;
 }
 
-.ul-states li.ul-opt-info.active p:hover {
+.ul-states li.ul-opt-info.active.open p {
+  background-color: rgba(163, 255, 242, 0.35);
+}
+.ul-states li.ul-opt-info.active.open p:hover {
+  background-color: rgba(163, 255, 242, 0.58);
+}
+
+.ul-states li.ul-opt-info.open p:hover {
   background-color: rgba(102, 105, 105, 0.5);
+}
+
+.ul-states li.active {
+  background-color: rgba(163, 255, 242, 0.35);
+}
+
+.ul-states li.active:hover {
+  background-color: rgba(163, 255, 242, 0.58);
 }
 
 .ul-states li:hover {
@@ -284,7 +304,7 @@ a {
   transition: none;
 }
 
-.ul-opt-info.active ul {
+.ul-opt-info.open ul {
   max-height: 2000px;
   //background-color: rgba(223, 223, 223, 0.7);
   transition: max-height 0.2s ease-out;

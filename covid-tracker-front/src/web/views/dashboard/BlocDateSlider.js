@@ -5,6 +5,7 @@ import {ApiEndpoint} from "../../../utils/api/ApiEndpoint";
 import CSlider from "../../components/CSlider";
 import PropTypes from 'prop-types';
 import TDate from "../../../utils/TDate";
+import TString from "../../../utils/TString";
 
 const propTypes = {
     onDateChange: PropTypes.func.isRequired,
@@ -17,13 +18,21 @@ class BlocDateSlider extends CDataLoader {
     constructor(props) {
         super(props);
         this.initState({
-            endpoint: ApiEndpoint.DATA_GET_ValidDates,
-            parameters: props.parameters,
             data: [],
             currentSliderDate: props.date
         });
+        this.getEndpoint = this.getEndpoint.bind(this);
+        this.getParameters = this.getParameters.bind(this);
         this.formatData = this.formatData.bind(this);
         this.onDateSliderChange = this.onDateSliderChange.bind(this);
+    }
+
+    getEndpoint() {
+        return ApiEndpoint.DATA_GET_ValidDates;
+    }
+
+    getParameters() {
+        return this.props.parameters;
     }
 
     formatData(flatData) {
@@ -54,7 +63,7 @@ class BlocDateSlider extends CDataLoader {
                              min={0}
                              max={this.state.data.length - 1}
                              sliderTipText={this.state.currentSliderDate}/>
-                             : null}
+                    : null}
             </CBlock>
         )
     }

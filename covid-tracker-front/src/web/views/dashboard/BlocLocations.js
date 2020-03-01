@@ -15,7 +15,8 @@ class BlocLocations extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: null
+            data: null,
+            location: {state: "", country: ""}
         };
         this.initData = this.initData.bind(this);
     }
@@ -39,7 +40,11 @@ class BlocLocations extends Component {
         this.setState({data: result});
     }
 
-    openDataInfo(key) {
+    openDataInfo(key, event) {
+        if (event) {
+            event.stopPropagation();
+            event.nativeEvent.stopImmediatePropagation();
+        }
         let data = {...this.state.data};
         let item = data[key];
         item.open = !item.open;
@@ -47,12 +52,28 @@ class BlocLocations extends Component {
         this.setState({data});
     }
 
-    onLocationClick(location, isCountry) {
+    onLocationClick(location, isCountry, event) {
+        console.log(event);
+        if (event) {
+            event.stopPropagation();
+            event.nativeEvent.stopImmediatePropagation();
+        }
         if (this.props.onLocationFocus) {
-            this.props.onLocationFocus(isCountry ?
+            let finalLocation = isCountry ?
                 {state: "", country: location}
-                : {state: location.state, country: location.country}
-                );
+                : {state: location.state, country: location.country};
+
+            if (this.state.location.state === finalLocation.state && this.state.location.country === finalLocation.country) {
+                finalLocation = {state: "", country: ""};
+            }
+            this.props.onLocationFocus(finalLocation);
+            this.setState({location: finalLocation})
+        }
+    }
+
+    isLocationActive(state, country) {
+        if (this.state.location.state === state && this.state.location.country === country) {
+            return "active"
         }
     }
 
@@ -65,7 +86,7 @@ class BlocLocations extends Component {
                             Object.keys(this.state.data).map((key, i) => {
                                 if (this.state.data[key].states.length === 1) {
                                     return (
-                                        <li key={i}
+                                        <li key={i} className={this.isLocationActive("", this.state.data[key].name)}
                                             onClick={() => this.onLocationClick(this.state.data[key].name, true)}>
                                             <span
                                                 className="red">{this.state.data[key].value}</span> {this.state.data[key].name}
@@ -74,22 +95,24 @@ class BlocLocations extends Component {
                                 } else {
                                     return (
                                         <li key={i}
-                                            className={"ul-opt-info " + (this.state.data[key].open ? "active" : "")}
+                                            className={"ul-opt-info " + (this.state.data[key].open ? "open " : "") + this.isLocationActive("", this.state.data[key].name)}
                                             onClick={() => this.onLocationClick(this.state.data[key].name, true)}>
                                             <p>
                                                 <span
                                                     className="red">{this.state.data[key].value}</span> {this.state.data[key].name}
                                                 <FontAwesomeIcon
                                                     icon={this.state.data[key].open ? "chevron-up" : "chevron-down"}
-                                                    onClick={() => this.openDataInfo(key)}
+                                                    onClick={(event) => this.openDataInfo(key, event)}
                                                     className="tl-item-hover"/>
                                             </p>
                                             <ul>
                                                 {this.state.data[key].states.map((item, i) => {
                                                     return (
                                                         <li key={i}
-                                                            onClick={() => this.onLocationClick(item, false)}><span
-                                                            className="red">{item.confirmed}</span> {item.state}</li>
+                                                            className={this.isLocationActive(item.state, item.country)}
+                                                            onClick={(event) => this.onLocationClick(item, false, event)}>
+                                                            <span className="red">{item.confirmed}</span> {item.state}
+                                                        </li>
                                                     );
                                                 })}
                                             </ul>

@@ -2,6 +2,7 @@ import React from "react";
 import CBlock from "../../components/CBlock";
 import CDataLoader from "../../components/CDataLoader";
 import {ApiEndpoint} from "../../../utils/api/ApiEndpoint";
+import TString from "../../../utils/TString";
 
 const propTypes = {
 };
@@ -12,10 +13,18 @@ class BlocCharts extends CDataLoader {
     constructor(props) {
         super(props);
         this.initState({
-            endpoint: ApiEndpoint.DATA_GET_Total,
-            parameters: {},
             data: []
         });
+        this.getEndpoint = this.getEndpoint.bind(this);
+        this.getParameters = this.getParameters.bind(this);
+    }
+
+    getEndpoint() {
+        return ApiEndpoint.DATA_GET_Total;
+    }
+
+    getParameters() {
+        return {};
     }
 
     formatData(flatData) {

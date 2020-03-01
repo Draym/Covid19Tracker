@@ -17,14 +17,23 @@ class Dashboard extends CDataLoader {
         super(props);
         let today = moment().format("M/D/YY");
         this.initState({
-            endpoint: ApiEndpoint.DATA_GET_StateTotal,
             parameters: {date: today},
             data: [],
             currentDate: today,
-            location: {country: ""}
+            location: {state: "", country: ""}
         });
         this.updateFocusedLocation = this.updateFocusedLocation.bind(this);
         this.updateCurrentDate = this.updateCurrentDate.bind(this);
+        this.getEndpoint = this.getEndpoint.bind(this);
+        this.getParameters = this.getParameters.bind(this);
+    }
+
+    getEndpoint() {
+        return ApiEndpoint.DATA_GET_StateTotal;
+    }
+
+    getParameters() {
+        return this.state.parameters;
     }
 
     formatData(flatData) {
@@ -40,7 +49,7 @@ class Dashboard extends CDataLoader {
 
     updateFocusedLocation(location) {
         console.log("NEW LOCATION: ", location);
-        this.setState({location: (this.state.location.state === location.state && this.state.location.country === location.country ? "" : location)});
+        this.setState({location: location});
     }
 
     render() {

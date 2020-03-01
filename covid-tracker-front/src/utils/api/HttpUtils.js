@@ -1,3 +1,4 @@
+import TString from "../TString";
 
 let HttpUtils = function () {
 
@@ -5,6 +6,9 @@ let HttpUtils = function () {
     let result = '';
 
     for (let i in parameters) {
+      if (TString.isNull(parameters[i])) {
+        continue;
+      }
       if (result !== '')
         result += '&';
       result += i + '=' + parameters[i];

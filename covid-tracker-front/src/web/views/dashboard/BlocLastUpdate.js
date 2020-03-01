@@ -3,9 +3,9 @@ import CBlock from "../../components/CBlock";
 import CDataLoader from "../../components/CDataLoader";
 import {ApiEndpoint} from "../../../utils/api/ApiEndpoint";
 import moment from "moment";
+import TString from "../../../utils/TString";
 
-const propTypes = {
-};
+const propTypes = {};
 
 const defaultProps = {};
 
@@ -13,10 +13,18 @@ class BlocLastUpdate extends CDataLoader {
     constructor(props) {
         super(props);
         this.initState({
-            endpoint: ApiEndpoint.DATA_GET_LastUpdate,
-            parameters: props.parameters,
             data: {}
         });
+        this.getEndpoint = this.getEndpoint.bind(this);
+        this.getParameters = this.getParameters.bind(this);
+    }
+
+    getEndpoint() {
+        return ApiEndpoint.DATA_GET_LastUpdate;
+    }
+
+    getParameters() {
+        return this.props.parameters;
     }
 
     formatData(flatData) {
