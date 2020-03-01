@@ -55,7 +55,9 @@ class BlocCovidStats extends CDataLoader {
                 <p className="b-cov-nb white">{TPrettyNbr.pretify(this.state.data.totalDeath)}</p>
                 <p className="b-cov-inc"><span
                     className="white">+ {TPrettyNbr.pretify(this.state.data.addDeath)}</span> since
-                    24h ({TPrettyNbr.pretifyFloat(this.state.data.incDeath, 1, true)}%)</p>
+                    24h ({TPrettyNbr.pretifyFloat(this.state.data.incDeath, 1, true)}%)
+                    - {TPrettyNbr.pretifyFloat(this.state.data.totalDeath * 100 / (this.state.data.totalDeath + this.state.data.totalRecovered), 1)}%
+                    death rate</p>
             </CBlock>
         ];
     }
