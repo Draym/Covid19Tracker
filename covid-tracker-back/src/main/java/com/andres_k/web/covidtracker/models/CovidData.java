@@ -86,14 +86,6 @@ public class CovidData {
         this.country = country;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public Integer getConfirmed() {
         return confirmed;
     }
@@ -132,5 +124,13 @@ public class CovidData {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

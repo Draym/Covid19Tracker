@@ -1,5 +1,6 @@
 package com.andres_k.web.covidtracker.utils.tools;
 
+import com.andres_k.web.covidtracker.utils.Console;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

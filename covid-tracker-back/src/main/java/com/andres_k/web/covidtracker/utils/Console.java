@@ -1,4 +1,4 @@
-package com.andres_k.web.covidtracker.utils.tools;
+package com.andres_k.web.covidtracker.utils;
 
 public class Console {
     public static void log(String value) {

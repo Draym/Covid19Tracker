@@ -1,7 +1,14 @@
 package com.andres_k.web.covidtracker.services;
 
 import com.andres_k.web.covidtracker.dao.CovidDataRepository;
+import com.andres_k.web.covidtracker.dao.DataUpdatedRepository;
+import com.andres_k.web.covidtracker.dao.ValidDateRepository;
+import com.andres_k.web.covidtracker.dao.ValidLocationRepository;
 import com.andres_k.web.covidtracker.models.CovidData;
+import com.andres_k.web.covidtracker.models.DataUpdated;
+import com.andres_k.web.covidtracker.models.ValidDate;
+import com.andres_k.web.covidtracker.models.ValidLocation;
+import com.andres_k.web.covidtracker.utils.Console;
 import com.andres_k.web.covidtracker.utils.data.APIEndpoint;
 import com.andres_k.web.covidtracker.utils.http.HttpClient;
 import com.andres_k.web.covidtracker.utils.tools.*;
@@ -10,7 +17,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.io.LineNumberReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -19,29 +25,77 @@ import java.util.stream.Collectors;
 @Service
 public class CovidUpdateService {
     private final CovidDataRepository covidDataRepository;
+    private final ValidDateRepository validDateRepository;
+    private final ValidLocationRepository validLocationRepository;
+    private final DataUpdatedRepository dataUpdatedRepository;
     private final HttpClient httpClient;
 
     @Autowired
-    public CovidUpdateService(CovidDataRepository covidDataRepository, HttpClient httpClient) {
+    public CovidUpdateService(CovidDataRepository covidDataRepository, ValidDateRepository validDateRepository, ValidLocationRepository validLocationRepository, DataUpdatedRepository dataUpdatedRepository, HttpClient httpClient) {
         this.covidDataRepository = covidDataRepository;
+        this.validDateRepository = validDateRepository;
+        this.validLocationRepository = validLocationRepository;
+        this.dataUpdatedRepository = dataUpdatedRepository;
         this.httpClient = httpClient;
     }
 
     public void update() throws Exception {
-        CovidData lastEntry = this.covidDataRepository.findTopOrderByDesc();
-        Map<String, List<CovidData>> data = this.loadFullDataFromAPIs(lastEntry.getDate());
-
+        String lastEntry = this.validDateRepository.findTopDateOrderByDesc();
+        Map<String, List<CovidData>> data = this.loadFullDataFromAPIs(TString.isNull(lastEntry) ? null : lastEntry);
+        this.saveValidLocations(data, false);
+        this.saveValidDates(data, false);
+        this.saveCovidData(data);
     }
 
     public void resetData() throws Exception {
         Map<String, List<CovidData>> data = this.loadFullDataFromAPIs(null);
+
+        if (data.isEmpty() || data.get(data.keySet().toArray()[0]).size() == 0) {
+            return;
+        }
+        // Archive
         List<CovidData> archive = this.covidDataRepository.findAll();
         TFiles.writeInFile("covid_data_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy--HH-mm")), TJson.toString(archive));
         this.covidDataRepository.deleteAll();
-        List<CovidData> newEntries = data.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
-        this.covidDataRepository.saveAll(newEntries);
+
+        this.saveValidLocations(data, true);
+        this.saveValidDates(data, true);
+        this.saveCovidData(data);
     }
 
+    private void saveCovidData(Map<String, List<CovidData>> data) {
+        List<CovidData> newEntries = data.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
+        this.covidDataRepository.saveAll(newEntries);
+        this.dataUpdatedRepository.save(new DataUpdated(LocalDateTime.now(), newEntries.size()));
+    }
+
+    private void saveValidLocations(Map<String, List<CovidData>> data, boolean reset) {
+        List<String> locations = new ArrayList<>(data.keySet());
+        if (reset) {
+            this.validLocationRepository.deleteAllWithQuery();
+        }
+        Map<String, ValidLocation> newLocations = new HashMap<>();
+        for (String location : locations) {
+            String[] values = location.split("_");
+
+            if (values.length > 1) {
+                newLocations.put(location, new ValidLocation(TString.isNull(values[0]) ? null : values[0], values[1], "state"));
+                newLocations.put(values[1], new ValidLocation(values[1], null, "country"));
+            }
+        }
+        this.validLocationRepository.saveAll(new ArrayList<>(newLocations.values()));
+    }
+
+    private void saveValidDates(Map<String, List<CovidData>> data, boolean reset) {
+        List<ValidDate> newDates = new ArrayList<>();
+        for (CovidData item : data.get(data.keySet().toArray()[0])) {
+            newDates.add(new ValidDate(item.getDate()));
+        }
+        if (reset) {
+            this.validDateRepository.deleteAllWithQuery();
+        }
+        this.validDateRepository.saveAll(newDates);
+    }
 
     private Map<String, List<CovidData>> loadFullDataFromAPIs(String optDate) throws Exception {
         try {
@@ -71,7 +125,6 @@ public class CovidUpdateService {
         List<String> dates = parsedResult.get(0).subList(4, parsedResult.get(0).size());
 
         for (int i = 1; i < parsedResult.size(); ++i) {
-            Console.log("line: " + i + "_" + parsedResult.get(i).get(0)+ "_" + parsedResult.get(i).get(1)+ "_" + parsedResult.get(i).get(2)+ "_" + parsedResult.get(i).get(3)+ "_" + parsedResult.get(i).get(4));
             String state = parsedResult.get(i).get(0);
             String country = parsedResult.get(i).get(1);
             Double latitude = Double.parseDouble(parsedResult.get(i).get(2));
@@ -98,5 +151,9 @@ public class CovidUpdateService {
                 data.get(key).put(date, item);
             }
         }
+    }
+
+    public LocalDateTime getLastDataUpdate() {
+        return this.dataUpdatedRepository.findTopUpdateOrderByDesc();
     }
 }
