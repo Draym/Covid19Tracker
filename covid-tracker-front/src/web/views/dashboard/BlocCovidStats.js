@@ -52,7 +52,7 @@ class BlocCovidStats extends CDataLoader {
             </CBlock>,
             <CBlock key={2} cols="col-6 col-md-4" id="b-death" loading={this.state.loading}>
                 <p className="b-title">Total Deaths</p>
-                <p className="b-cov-nb white">{TPrettyNbr.pretify(this.state.data.totalDeath)}</p>
+                <p className="b-cov-nb grey-light">{TPrettyNbr.pretify(this.state.data.totalDeath)}</p>
                 <p className="b-cov-inc"><span
                     className="white">+ {TPrettyNbr.pretify(this.state.data.addDeath)}</span> since
                     24h ({TPrettyNbr.pretifyFloat(this.state.data.incDeath, 1, true)}%)

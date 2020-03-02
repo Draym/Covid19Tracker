@@ -177,6 +177,8 @@ a {
 
 #b-header .app-block {
   display: flex;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 #b-header .pre-title {
@@ -194,15 +196,20 @@ a {
 }
 
 #b-states {
-  height: 605px;
+  height: 592px;
 }
 
-#b-charts {
-  height: 222px;
+#b-charts .app-block {
+  padding-bottom: 0;
+}
+
+#b-charts .nav {
+  font-size: 12px;
 }
 
 #b-recovered, #b-death, #b-confirmed {
   height: 160px;
+  margin-bottom: 0;
 }
 
 #b-map .app-block {
@@ -240,6 +247,10 @@ a {
 
 .white {
   color: white;
+}
+
+.grey-light {
+  color: #e7e7e7;
 }
 
 .orange {
@@ -434,4 +445,44 @@ a {
   right: 0 !important;
   top: unset !important;
   left: unset !important;
+}
+
+/*
+** TABS
+ */
+
+.nav-item:hover {
+  cursor: pointer;
+}
+
+.nav-link {
+  color: #ebebeb !important;
+}
+
+.nav-link.active {
+  background-color: rgba(104, 104, 104, 0.2) !important;
+  color: #f1f1f1 !important;
+  border-color: #c6c6c6 !important;
+}
+
+.nav-item-disabled:hover, .nav-item-disabled:hover .nav-link {
+  border-color: transparent !important;
+  cursor: unset;
+}
+
+.nav-link:hover {
+  border-color: #c6c6c6 !important;
+}
+
+.nav-item-right {
+  margin-left: auto;
+}
+.nav-tabs {
+  border-color: #c6c6c6 !important;
+}
+/**
+** CHART
+ */
+.chart-wrapper {
+  margin: auto;
 }

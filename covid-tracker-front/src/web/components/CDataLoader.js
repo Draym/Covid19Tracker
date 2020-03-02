@@ -46,6 +46,7 @@ class CDataLoader extends CComponent {
         this.isLoading(true);
         console.log("go: ", this.getEndpoint(), parameters);
         HttpUtils.GET(process.env.REACT_APP_SERVER_URL, this.getEndpoint(), parameters, function (data) {
+            console.log("OLA: ", this.getEndpoint(), data);
             if (data) {
                 this.initializeData(data);
             } else {

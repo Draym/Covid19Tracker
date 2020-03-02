@@ -28,6 +28,10 @@ class Dashboard extends CDataLoader {
         this.getParameters = this.getParameters.bind(this);
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("--------------- dashboard UPDATE")
+    }
+
     getEndpoint() {
         return ApiEndpoint.DATA_GET_StateTotal;
     }
@@ -73,7 +77,7 @@ class Dashboard extends CDataLoader {
                         <BlocCharts/>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row mt-2">
                     <div className="col-12 col-md-10">
                         <div className="row">
                             <BlocLocations data={this.state.data} loading={this.state.loading}
