@@ -7,7 +7,6 @@ import InputGroup from "reactstrap/es/InputGroup";
 import InputGroupAddon from "reactstrap/es/InputGroupAddon";
 import InputGroupText from "reactstrap/es/InputGroupText";
 import TString from "../../../utils/TString";
-import TDate from "../../../utils/TDate";
 
 const propTypes = {
     data: PropTypes.array.isRequired,

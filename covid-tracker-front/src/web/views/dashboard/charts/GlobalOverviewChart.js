@@ -1,4 +1,3 @@
-import React from "react";
 import ChartUtils from "../../../../utils/chart/ChartUtils";
 import EColorPicker from "../../../../utils/enum/EColorPicker";
 import TDate from "../../../../utils/TDate";

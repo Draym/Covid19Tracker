@@ -10,7 +10,6 @@ import BlocDateSlider from "./dashboard/BlocDateSlider";
 import BlocCharts from "./dashboard/BlocCharts";
 import BlocHeader from "./dashboard/BlocHeader";
 import moment from "moment";
-import TString from "../../utils/TString";
 import BlocBookmarks from "./dashboard/BlocBookmarks";
 
 class Dashboard extends CDataLoader {
