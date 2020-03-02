@@ -59,9 +59,9 @@ public class CovidTotal {
         this.addRecovered = addRecovered;
         this.addConfirmed = addConfirmed;
         this.addDeath = addDeath;
-        this.incRecovered = (totalRecovered == 0 ? 0d : addRecovered * 100d / (totalRecovered - addRecovered));
-        this.incConfirmed = (totalConfirmed == 0 ? 0d : addConfirmed * 100d / (totalConfirmed - addConfirmed));
-        this.incDeath = (totalDeath == 0 ? 0d : addDeath * 100d / (totalDeath - addDeath));
+        this.incRecovered = ((totalRecovered == 0) || (totalRecovered - addRecovered == 0) ? 0d : addRecovered * 100d / (totalRecovered - addRecovered));
+        this.incConfirmed =  ((totalConfirmed == 0) || (totalConfirmed - addConfirmed == 0) ? 0d : addConfirmed * 100d / (totalConfirmed - addConfirmed));
+        this.incDeath = ((totalDeath == 0) || (totalDeath - addDeath == 0) ? 0d : addDeath * 100d / (totalDeath - addDeath));
         this.date = date;
     }
 
