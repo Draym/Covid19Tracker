@@ -92,6 +92,25 @@ a {
   margin: 0 0.3em;
 }
 
+.icon-bookmark {
+  margin-left: 20px;
+  font-size: 25px;
+}
+
+.icon-bookmark[data-prefix="fas"] {
+  color: rgba(149, 255, 200, 0.84)
+}
+
+.icon-bookmark[data-prefix="far"] {
+  color: rgba(225, 225, 225, 0.8)
+}
+
+.icon-bookmark.tiny {
+  font-size: 15px;
+  margin-right: 10px;
+  margin-left: 0;
+}
+
 /*
 ** BLOCK
  */
@@ -216,6 +235,15 @@ a {
   padding: 0;
 }
 
+#b-bookmarks .app-block {
+  padding-bottom: 0;
+  padding-right: 0;
+}
+
+#b-bookmarks .b-title {
+  border-bottom: 1px solid rgba(163, 163, 163, 0.80);
+}
+
 @media (max-width: 992px) {
   #b-recovered {
     padding-right: 5px;
@@ -249,12 +277,25 @@ a {
   color: white;
 }
 
+
 .grey-light {
   color: #e7e7e7;
 }
 
+.grey {
+  color: #a3a3a3;
+}
+
+.grey-a {
+  color: rgba(163, 163, 163, 0.80);
+}
+
 .orange {
   color: #ff8c00;
+}
+
+.green-blue {
+  color: rgba(149, 255, 200, 0.84);
 }
 
 
@@ -276,8 +317,9 @@ a {
 .ul-states {
   list-style: none;
   padding: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: inherit;
+  margin-bottom: 0;
 }
 
 .ul-states li {
@@ -344,8 +386,24 @@ a {
   cursor: grab;
 }
 
-.ul-states {
+.ul-bookmarks {
+  list-style: none;
+  padding: 0;
+  overflow-y: auto;
+  height: inherit;
+  max-height: 100px;
   margin-bottom: 0;
+}
+
+.ul-bookmarks li {
+  padding-left: 10px;
+  margin-bottom: 3px;
+  color: rgba(255, 255, 255, 0.80);
+}
+
+.ul-bookmarks li span:hover {
+  cursor: pointer;
+  color: rgba(161, 222, 255, 0.8);
 }
 
 /*
@@ -462,7 +520,7 @@ a {
 .nav-link.active {
   background-color: rgba(104, 104, 104, 0.2) !important;
   color: #f1f1f1 !important;
-  border-color: #c6c6c6 !important;
+  border-color: rgba(163, 163, 163, 0.80) !important;
 }
 
 .nav-item-disabled:hover, .nav-item-disabled:hover .nav-link {
@@ -471,15 +529,17 @@ a {
 }
 
 .nav-link:hover {
-  border-color: #c6c6c6 !important;
+  border-color: rgba(163, 163, 163, 0.80) !important;
 }
 
 .nav-item-right {
   margin-left: auto;
 }
+
 .nav-tabs {
-  border-color: #c6c6c6 !important;
+  border-color: rgba(163, 163, 163, 0.80) !important;
 }
+
 /**
 ** CHART
  */

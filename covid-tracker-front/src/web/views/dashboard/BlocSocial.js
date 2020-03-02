@@ -4,7 +4,7 @@ import CBlock from "../../components/CBlock";
 class BlocSocial extends Component {
     render() {
         return (
-            <CBlock className="height-full">
+            <CBlock cols="col-12" className="height-full">
                 SOCIAL SPACE
             </CBlock>
         );

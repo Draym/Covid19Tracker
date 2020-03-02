@@ -11,6 +11,7 @@ import BlocCharts from "./dashboard/BlocCharts";
 import BlocHeader from "./dashboard/BlocHeader";
 import moment from "moment";
 import TString from "../../utils/TString";
+import BlocBookmarks from "./dashboard/BlocBookmarks";
 
 class Dashboard extends CDataLoader {
     constructor(props) {
@@ -20,12 +21,15 @@ class Dashboard extends CDataLoader {
             parameters: {date: today},
             data: [],
             currentDate: today,
-            location: {state: "", country: ""}
+            location: {state: "", country: ""},
+            bookmarkReload: undefined
         });
         this.updateFocusedLocation = this.updateFocusedLocation.bind(this);
         this.updateCurrentDate = this.updateCurrentDate.bind(this);
         this.getEndpoint = this.getEndpoint.bind(this);
         this.getParameters = this.getParameters.bind(this);
+        this.onBookmarksChange = this.onBookmarksChange.bind(this);
+        this.onBookmarkClick = this.onBookmarkClick.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -56,14 +60,24 @@ class Dashboard extends CDataLoader {
         this.setState({location: location});
     }
 
+    onBookmarksChange() {
+        this.setState({
+            bookmarkReload: moment().format('HH:mm:ss')
+        });
+    }
+
+    onBookmarkClick(bookmark) {
+        this.setState({location: bookmark});
+    }
+
     render() {
         return (
             <div className="app-content">
                 <div className="row">
                     <div className="col-12 col-md-8">
                         <div className="row">
-                            <BlocHeader date={this.state.currentDate}
-                                        location={TString.isNull(this.state.location.state) ? this.state.location.country : this.state.location.state}/>
+                            <BlocHeader date={this.state.currentDate} onBookmarksChange={this.onBookmarksChange}
+                                        location={this.state.location}/>
                         </div>
                         <div className="row">
                             <BlocCovidStats parameters={{
@@ -91,7 +105,12 @@ class Dashboard extends CDataLoader {
                         </div>
                     </div>
                     <div className="col-12 col-md-2 pl-0">
-                        <BlocSocial/>
+                        <div className="row">
+                            <BlocBookmarks key={this.state.bookmarkReload} onBookmarkClick={this.onBookmarkClick} onBookmarksChange={this.onBookmarksChange}/>
+                        </div>
+                        <div className="row">
+                            <BlocSocial/>
+                        </div>
                     </div>
                 </div>
 

@@ -1,12 +1,10 @@
 import ContextStorage from "./ContextStorage";
+import EStorageKey from "../enum/EStorageKey";
 
 class UserSession {
-  static sessionKey() {
-    return 'user-data';
-  }
-
+  
   static getSession() {
-    let session = ContextStorage.GET(this.sessionKey());
+    let session = ContextStorage.GET(EStorageKey.USER);
 
     if (session != null) {
       return JSON.parse(session);
@@ -35,15 +33,15 @@ class UserSession {
   }
 
   static clearSession() {
-    ContextStorage.CLEAR(this.sessionKey());
+    ContextStorage.CLEAR(EStorageKey.USER);
   }
 
   static storeSession(data) {
-   ContextStorage.SET(this.sessionKey(), JSON.stringify(data));
+   ContextStorage.SET(EStorageKey.USER, JSON.stringify(data));
   }
 
   static hasSession() {
-    return ContextStorage.GET(this.sessionKey()) != null;
+    return ContextStorage.GET(EStorageKey.USER) != null;
   }
 }
 
