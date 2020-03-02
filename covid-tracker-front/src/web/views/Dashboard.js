@@ -93,7 +93,7 @@ class Dashboard extends CDataLoader {
                             <BlocLocations data={this.state.data} loading={this.state.loading}
                                            date={this.state.loading ? null : this.state.currentDate}
                                            onLocationFocus={this.updateFocusedLocation}/>
-                            <BlocMap data={this.state.data} loading={this.state.loading}/>
+                            <BlocMap data={this.state.data}/>
                         </div>
                         <div className="row">
                             <BlocLastUpdate/>

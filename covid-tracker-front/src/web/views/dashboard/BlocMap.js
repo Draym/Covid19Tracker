@@ -5,8 +5,7 @@ import CMap from "../../components/CMap";
 import TArray from "../../../utils/TArray";
 
 const propTypes = {
-    data: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired
+    data: PropTypes.array.isRequired
 };
 
 const defaultProps = {};
@@ -15,7 +14,8 @@ class BlocMap extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            map: React.createRef()
+            map: React.createRef(),
+            loading: true
         }
     }
 
@@ -25,7 +25,7 @@ class BlocMap extends Component {
             return true;
         }
         if (!this.props.data || this.props.data.length === 0) {
-            this.state.map.current.create(nextProps.data);
+            this.state.map.current.create(nextProps.data, ()=>{this.setState({loading: false})});
         }
         if (!TArray.isEqual(this.props, nextProps)) {
             this.state.map.current.update(nextProps.data);
@@ -35,7 +35,7 @@ class BlocMap extends Component {
 
     render() {
         return (
-            <CBlock cols="col-12 col-md-9" loading={false} id="b-map">
+            <CBlock cols="col-12 col-md-9" loading={this.state.loading} ghostLoading={true} id="b-map">
                 <CMap ref={this.state.map}/>
             </CBlock>
         )

@@ -5,7 +5,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 const propTypes = {
     cols: PropTypes.string,
     className: PropTypes.string,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    ghostLoading: PropTypes.bool
 };
 
 const defaultProps = {
@@ -17,17 +18,31 @@ const defaultProps = {
 
 class CBlock extends Component {
     render() {
+        let renderGhostLoading = function () {
+            return <div className={"app-block " + this.props.className}>
+                {this.props.loading ? <div className="v-align h-align height-full width-full overflow-hidden">
+                    <ClipLoader
+                        size={35}
+                        color={"#d2d2d2"}
+                        loading={this.props.loading}
+                    />
+                </div> : null}
+                {this.props.children}
+            </div>;
+        }.bind(this);
         return (
             <div className={this.props.cols} id={this.props.id}>
-                <div className={"app-block " + this.props.className + (this.props.loading ? " c-align": "")}>
-                    {this.props.loading ?
-                        <ClipLoader
-                            size={35}
-                            color={"#d2d2d2"}
-                            loading={this.props.loading}
-                        />
-                        : this.props.children}
-                </div>
+                {this.props.ghostLoading ? renderGhostLoading() :
+                    <div className={"app-block " + this.props.className + (this.props.loading ? " c-align" : "")}>
+                        {this.props.loading ?
+                            <ClipLoader
+                                size={35}
+                                color={"#d2d2d2"}
+                                loading={this.props.loading}
+                            />
+                            : this.props.children}
+                    </div>
+                }
             </div>
         )
     }

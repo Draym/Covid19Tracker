@@ -8,7 +8,7 @@ class CMap extends Component {
         this.mapRef = React.createRef();
     }
 
-    create(data) {
+    create(data, cb) {
         loadModules(['esri/Map', 'esri/views/MapView', "esri/layers/FeatureLayer", "esri/Graphic", "esri/geometry/Point"], {css: true})
             .then(([Map, MapView, FeatureLayer, Graphic, Point]) => {
                 this.map = new Map({
@@ -109,6 +109,7 @@ class CMap extends Component {
                     center: [80, 30],
                     zoom: 3
                 });
+                cb();
             });
     }
 
