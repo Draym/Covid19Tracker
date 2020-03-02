@@ -15,8 +15,8 @@ class BlocCovidStats extends CDataLoader {
     constructor(props) {
         super(props);
         this.initState({
-            data: {},
-            cp_name: "COVID"
+            cp_name: "COVID",
+            data: {}
         });
         this.getEndpoint = this.getEndpoint.bind(this);
         this.getParameters = this.getParameters.bind(this);

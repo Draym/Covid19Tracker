@@ -21,10 +21,14 @@ class CDataLoader extends CComponent {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("-- " + this.state.cp_name + " TRY UPDATE", this.props.parameters, prevProps.parameters);
+        //console.log("-- " + this.state.cp_name + " TRY UPDATE", this.props.parameters, prevProps.parameters);
+
         if (!TObject.isEqual(this.props.parameters, prevProps.parameters)) {
-            console.log("## OK");
+            //console.log("## OK");
             this.loadDataAndInitialize(this.props.parameters);
+        } else if (!TObject.isEqual(this.state.parameters, prevState.parameters)) {
+            //console.log("## OK");
+            this.loadDataAndInitialize(this.state.parameters);
         }
     }
 

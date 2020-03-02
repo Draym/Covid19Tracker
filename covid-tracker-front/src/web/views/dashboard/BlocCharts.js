@@ -19,9 +19,9 @@ class BlocCharts extends CDataLoader {
     constructor(props) {
         super(props);
         this.initState({
+            cp_name: "CHART",
             data: [],
-            selectedTab: 0,
-            cp_name: "CHART"
+            selectedTab: 0
         });
         this.getEndpoint = this.getEndpoint.bind(this);
         this.getParameters = this.getParameters.bind(this);

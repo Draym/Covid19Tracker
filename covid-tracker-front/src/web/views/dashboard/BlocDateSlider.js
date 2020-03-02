@@ -17,6 +17,7 @@ class BlocDateSlider extends CDataLoader {
     constructor(props) {
         super(props);
         this.initState({
+            cp_name: "SLIDER",
             data: [],
             currentSliderDate: props.date
         });

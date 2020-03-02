@@ -17,6 +17,7 @@ class Dashboard extends CDataLoader {
         super(props);
         let today = moment().format("M/D/YY");
         this.initState({
+            cp_name: "DASHBOARD",
             parameters: {date: today},
             data: [],
             currentDate: today,
@@ -29,10 +30,6 @@ class Dashboard extends CDataLoader {
         this.getParameters = this.getParameters.bind(this);
         this.onBookmarksChange = this.onBookmarksChange.bind(this);
         this.onBookmarkClick = this.onBookmarkClick.bind(this);
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("--------------- dashboard UPDATE")
     }
 
     getEndpoint() {

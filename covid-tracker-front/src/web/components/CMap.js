@@ -8,18 +8,16 @@ class CMap extends Component {
         this.mapRef = React.createRef();
     }
 
-    componentDidMount() {
-        // lazy load the required ArcGIS API for JavaScript modules and CSS
-        loadModules(['esri/Map', 'esri/views/MapView', "esri/layers/FeatureLayer", "esri/core/promiseUtils", "esri/Graphic", "esri/geometry/Point"], {css: true})
-            .then(([Map, MapView, FeatureLayer, promiseUtils, Graphic, Point]) => {
-                const map = new Map({
+    create(data) {
+        loadModules(['esri/Map', 'esri/views/MapView', "esri/layers/FeatureLayer", "esri/Graphic", "esri/geometry/Point"], {css: true})
+            .then(([Map, MapView, FeatureLayer, Graphic, Point]) => {
+                this.map = new Map({
                     basemap: 'dark-gray-vector'
                 });
-
-                let graphics = this.props.data.map(function (place) {
+                this.graphics = data.map(function (place) {
                     return new Graphic({
                         attributes: {
-                            ObjectId: place.id,
+                            ObjectID: place.id,
                             name: (!TString.isNull(place.state) ? (place.state + ", ") : "") + place.country,
                             confirmed: place.confirmed,
                             recovered: place.recovered,
@@ -31,10 +29,10 @@ class CMap extends Component {
                             latitude: place.latitude
                         })
                     });
-                });
+                }.bind(this));
 
-                let featureLayer = new FeatureLayer({
-                    source: graphics,
+                this.featureLayer = new FeatureLayer({
+                    source: this.graphics,
                     renderer: {
                         type: "simple",                    // autocasts as new SimpleRenderer()
                         symbol: {                          // autocasts as new SimpleMarkerSymbol()
@@ -49,14 +47,14 @@ class CMap extends Component {
                             {
                                 type: "size",
                                 field: "CONFIRMED",
-                                stops: [{ value: 10, size: 5 },
-                                    { value: 100, size: 14 },
-                                    { value: 500, size: 28 },
-                                    { value: 1000, size: 50 },
-                                    { value: 5000, size: 80 },
-                                    { value: 10000, size: 100 },
-                                    { value: 50000, size: 120 },
-                                    { value: 1000000, size: 160 }]
+                                stops: [{value: 10, size: 5},
+                                    {value: 100, size: 14},
+                                    {value: 500, size: 28},
+                                    {value: 1000, size: 50},
+                                    {value: 5000, size: 80},
+                                    {value: 10000, size: 100},
+                                    {value: 50000, size: 120},
+                                    {value: 1000000, size: 160}]
                             }
                         ]
                     },
@@ -75,7 +73,7 @@ class CMap extends Component {
                         {
                             name: "ObjectID",
                             alias: "ObjectID",
-                            type: "oid"
+                            type: "integer"
                         },
                         {
                             name: "NAME",
@@ -104,21 +102,48 @@ class CMap extends Component {
                         }
                     ]
                 });
-
-                map.layers.add(featureLayer);
-
+                this.map.layers.add(this.featureLayer);
                 this.view = new MapView({
                     container: this.mapRef.current,
-                    map: map,
+                    map: this.map,
                     center: [80, 30],
                     zoom: 3
                 });
             });
     }
 
+    update(data) {
+        loadModules(["esri/Graphic", "esri/geometry/Point"])
+            .then(([Graphic, Point]) => {
+                let graphics = data.map(function (place) {
+                    return new Graphic({
+                        attributes: {
+                            ObjectID: place.id,
+                            name: (!TString.isNull(place.state) ? (place.state + "-") : "") + place.country,
+                            confirmed: place.confirmed,
+                            recovered: place.recovered,
+                            death: place.death,
+                            existing: place.confirmed - place.recovered - place.death,
+                        },
+                        geometry: new Point({
+                            longitude: place.longitude,
+                            latitude: place.latitude
+                        })
+                    });
+                }.bind(this));
+                this.featureLayer.applyEdits({
+                    deleteFeatures: this.graphics,
+                    addFeatures: graphics
+                }).then(function (editsResult) {
+                    this.graphics = graphics;
+                }.bind(this)).catch(function (error) {
+                    console.error("[ applyEdits ] FAILURE: ", error.code, error.name, error.message);
+                });
+            });
+    }
+
     componentWillUnmount() {
         if (this.view) {
-            // destroy the map view
             this.view.container = null;
         }
     }

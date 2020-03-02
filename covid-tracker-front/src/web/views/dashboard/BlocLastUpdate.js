@@ -12,6 +12,7 @@ class BlocLastUpdate extends CDataLoader {
     constructor(props) {
         super(props);
         this.initState({
+            cp_name: "LAST_UPDATE",
             data: {}
         });
         this.getEndpoint = this.getEndpoint.bind(this);
