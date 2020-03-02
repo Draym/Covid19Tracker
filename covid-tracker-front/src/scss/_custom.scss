@@ -111,6 +111,61 @@ a {
   margin-left: 0;
 }
 
+.icon-input-clear {
+  font-size: 14px;
+  border: none;
+  color: rgba(226, 226, 226, 0.7) !important;
+  border-radius: 0;
+  border-bottom: 1px solid  rgb(226, 226, 226);
+  background-color: transparent;
+}
+
+.icon-input-clear:hover {
+  cursor: pointer;
+  color: white !important;
+}
+
+.icon-input-append {
+  color: rgba(163, 163, 163, 0.60) !important;
+  padding: 0 20px;
+  font-size: 25px;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid white;
+  background-color: transparent;
+}
+
+.input-group:hover .icon-input-append {
+  color: rgba(174, 174, 174, 0.8) !important;
+}
+
+/*
+** INPUT
+ */
+.input-location {
+  color: #e7e7e7 !important;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid white !important;
+  background-color: transparent !important;
+}
+
+.input-location::after {
+  content: "aa";
+}
+
+.input-location:focus {
+  box-shadow: none;
+}
+
+.input-location:hover::placeholder {
+  color: #c7c7c7 !important;
+}
+
+.input-location::placeholder {
+  color: #a3a3a3 !important;
+}
+
 /*
 ** BLOCK
  */
@@ -172,17 +227,29 @@ a {
   padding-left: 15px;
 }
 
-#b-states, #b-lastupdate {
+#b-locations {
+  height: 592px;
+}
+
+#b-locations ul {
+  height: 537px;
+}
+
+#b-locations, #b-lastupdate {
   padding-right: 0;
+}
+
+#b-locations .app-block {
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+#b-locations .app-block .input-group {
+  margin-bottom: 10px;
 }
 
 #b-lastupdate, #b-dateslider {
   margin-bottom: 0;
-}
-
-#b-states .app-block {
-  padding-right: 0;
-  padding-bottom: 0;
 }
 
 #b-lastupdate span {
@@ -212,10 +279,6 @@ a {
   text-align: center;
   font-size: 28px;
   font-weight: 600;
-}
-
-#b-states {
-  height: 592px;
 }
 
 #b-charts .app-block {

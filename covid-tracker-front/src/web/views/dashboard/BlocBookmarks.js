@@ -40,7 +40,7 @@ class BlocBookmarks extends Component {
             return null;
         }
         let getBookmarkLabel = function (location) {
-            return TString.isNull(location.country) ? "Word Global" : ((location.state ? location.state + "," : "") + location.country);
+            return TString.isNull(location.country) ? "Word Global" : ((location.state ? location.state + ", " : "") + location.country);
         };
         return (
             <CBlock cols="col-12" loading={this.state.loading} id="b-bookmarks">

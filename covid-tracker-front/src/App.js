@@ -5,11 +5,11 @@ import {BrowserRouter} from 'react-router-dom';
 import Navbar from "./web/containers/default/Navbar";
 
 import {library} from '@fortawesome/fontawesome-svg-core'
-import {faHandHoldingHeart, faChevronDown, faChevronUp, faBookmark as fasBookmark} from '@fortawesome/free-solid-svg-icons';
+import {faHandHoldingHeart, faChevronDown, faChevronUp, faBookmark as fasBookmark, faSearchLocation, faTimes} from '@fortawesome/free-solid-svg-icons';
 //import { faFacebookMessenger } from '@fortawesome/free-brands-svg-icons';
 import { faBookmark as farBookmark } from '@fortawesome/free-regular-svg-icons';
 
-library.add(faHandHoldingHeart, faChevronDown, faChevronUp, fasBookmark, farBookmark);
+library.add(faHandHoldingHeart, faChevronDown, faChevronUp, fasBookmark, farBookmark, faSearchLocation, faTimes);
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
