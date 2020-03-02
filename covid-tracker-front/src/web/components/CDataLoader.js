@@ -21,8 +21,9 @@ class CDataLoader extends CComponent {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("-- " + this.state.cp_name + " TRY UPDATE", this.props.parameters, prevProps.parameters);
         if (!TObject.isEqual(this.props.parameters, prevProps.parameters)) {
-            console.log("UPDATE RELOAD", this.props.parameters, prevProps.parameters);
+            console.log("## OK");
             this.loadDataAndInitialize(this.props.parameters);
         }
     }

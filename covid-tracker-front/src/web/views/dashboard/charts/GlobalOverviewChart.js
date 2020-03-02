@@ -42,6 +42,14 @@ class GlobalOverviewChart extends BaseLineChart {
         return datasets;
     }
 
+    getChartOption() {
+        let conf = ChartUtils.GetDefaultDateLineChartOpt(22, this.state.chartUnit, this.state.dateMin, this.state.dateMax, null, this.getCbTooltip ? this.getCbTooltip() : null);
+        conf.tooltips.mode = "index";
+        conf.tooltips.intersect = false;
+        conf.tooltips.position = "nearest";
+        return conf;
+    }
+
     getCbTooltip() {
         return {
             label: function (tooltipItem, data) {

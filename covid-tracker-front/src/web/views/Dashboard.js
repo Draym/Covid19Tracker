@@ -74,7 +74,7 @@ class Dashboard extends CDataLoader {
                         </div>
                     </div>
                     <div className="col-12 col-md-4">
-                        <BlocCharts/>
+                        <BlocCharts parameters={this.state.location}/>
                     </div>
                 </div>
                 <div className="row mt-2">

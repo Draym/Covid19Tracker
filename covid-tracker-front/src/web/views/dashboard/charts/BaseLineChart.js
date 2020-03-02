@@ -36,6 +36,7 @@ class BaseLineChart extends CComponent {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.data !== prevProps.data) {
+            console.log("-- Chart Updating: ", this.props.data);
             this.initializeData(this.props.data);
         }
     }
@@ -54,12 +55,16 @@ class BaseLineChart extends CComponent {
         this.props.loading(false, null);
     }
 
+    getChartOption() {
+        return ChartUtils.GetDefaultDateLineChartOpt(22, this.state.chartUnit, this.state.dateMin, this.state.dateMax, null, this.getCbTooltip ? this.getCbTooltip() : null)
+    }
+
     drawChart() {
         if (this.state.data && this.state.data.datasets && this.state.data.datasets.length > 0) {
             return (
                 <div className="chart-wrapper" style={{width: this.props.width, height: this.props.height }}>
                     <Line data={this.state.data}
-                          options={ChartUtils.GetDefaultDateLineChartOpt(22, this.state.chartUnit, this.state.dateMin, this.state.dateMax, null, this.getCbTooltip ? this.getCbTooltip() : null)}
+                          options={this.getChartOption()}
                     />
                 </div>
             );

@@ -36,12 +36,13 @@ class ChartUtils {
                     }
                 }],
                 yAxes: [{
+                    id: "y1",
                     ticks: {
                         stepSize: stepSize ? stepSize : null,
                         callback: function (value, index, values) {
                             return index % 3 === 0 || index === values.length - 1 ? TPrettyNbr.pretify(value) : null;
                         }
-                    },
+                    }
                 }]
             },
             tooltips: {
@@ -69,11 +70,12 @@ class ChartUtils {
                     }
                 }],
                 yAxes: [{
+                    id: "y1",
                     stacked: stackedY,
                     ticks: {
                         beginAtZero: true,
                         stepSize: step
-                    },
+                    }
                 }]
             },
             tooltips: {
@@ -94,8 +96,8 @@ class ChartUtils {
         };
     }
 
-    static getLineBlocConfig(label, color) {
-        return {
+    static getLineBlocConfig(label, color, yID) {
+        let conf = {
             label: label,
             lineTension: 0.3,
             borderColor: color,
@@ -105,6 +107,10 @@ class ChartUtils {
             data: [],
             fill: false
         };
+        if (yID) {
+            conf.yAxisID = yID;
+        }
+        return conf;
     }
 }
 

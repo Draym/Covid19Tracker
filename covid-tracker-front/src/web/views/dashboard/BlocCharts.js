@@ -7,8 +7,11 @@ import GlobalOverviewChart from "./charts/GlobalOverviewChart";
 import TDate from "../../../utils/TDate";
 import ConfirmedCasesChart from "./charts/ConfirmedCasesChart";
 import DeathRateChart from "./charts/DeathRateChart";
+import PropTypes from 'prop-types';
 
-const propTypes = {};
+const propTypes = {
+    parameters: PropTypes.object.isRequired
+};
 
 const defaultProps = {};
 
@@ -17,7 +20,8 @@ class BlocCharts extends CDataLoader {
         super(props);
         this.initState({
             data: [],
-            selectedTab: 0
+            selectedTab: 0,
+            cp_name: "CHART"
         });
         this.getEndpoint = this.getEndpoint.bind(this);
         this.getParameters = this.getParameters.bind(this);
@@ -25,25 +29,18 @@ class BlocCharts extends CDataLoader {
         this.isLoadingChart = this.isLoadingChart.bind(this);
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("BLOC CHART UPDATED")
-    }
-
     getEndpoint() {
         return ApiEndpoint.DATA_GET_Total;
     }
 
     getParameters() {
-        return {};
+        return this.props.parameters;
     }
 
     formatData(flatData) {
-        console.log("BEFORE SORT: ", flatData);
         flatData.sort(function (i1, i2) {
             return TDate.isGreater(i1.date, i2.date);
         });
-        console.log("BEFORE CREATE CHART: ", flatData);
-        //this.state.chart1.current.initializeData(flatData);
         return flatData;
     }
 
@@ -55,7 +52,6 @@ class BlocCharts extends CDataLoader {
     };
 
     isLoadingChart(value, error) {
-        console.log("LOADING: ", value);
         this.isLoading(value, error);
     }
 
