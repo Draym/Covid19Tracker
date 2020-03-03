@@ -44,7 +44,6 @@ class BlocDateSlider extends CDataLoader {
     }
 
     onDateSliderChange(value) {
-        console.log("slider: ", value);
         this.setState({
             currentSliderDate: this.state.data[value].date
         });

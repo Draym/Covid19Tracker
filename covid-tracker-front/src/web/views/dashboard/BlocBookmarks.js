@@ -44,7 +44,7 @@ class BlocBookmarks extends Component {
         };
         return (
             <CBlock cols="col-12" loading={this.state.loading} id="b-bookmarks">
-                <p className="b-title">Bookmarks</p>
+                <p className="b-title border-bottom">Bookmarks</p>
                 <ul className="ul-bookmarks">
                     {
                         this.state.bookmarks.map((item, i) => {

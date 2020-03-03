@@ -21,14 +21,15 @@ class BlocMap extends Component {
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         console.log("+++++++++ ref:", this.state.map, this.props.data, nextProps.data);
-        if (!this.state.map.current) {
-            return true;
-        }
-        if (!this.props.data || this.props.data.length === 0) {
-            this.state.map.current.create(nextProps.data, ()=>{this.setState({loading: false})});
-        }
-        if (!TArray.isEqual(this.props, nextProps)) {
-            this.state.map.current.update(nextProps.data);
+        if (this.state.map.current !== null && nextProps.data !== null && nextProps.data.length > 0) {
+            if (!this.props.data || this.props.data.length === 0) {
+                this.state.map.current.create(nextProps.data, () => {
+                    this.setState({loading: false})
+                });
+            }
+            if (!TArray.isEqual(this.props, nextProps)) {
+                this.state.map.current.update(nextProps.data);
+            }
         }
         return true;
     }
