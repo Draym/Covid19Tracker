@@ -33,3 +33,7 @@ build/
 
 ### LOGS ###
 logs
+
+### DEV & PROD properties ###
+/src/main/ressources/application-dev.properties
+/src/main/ressources/application-prod.properties
