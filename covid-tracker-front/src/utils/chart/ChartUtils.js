@@ -28,11 +28,9 @@ class ChartUtils {
                     ticks: {
                         source: 'auto',
                         maxRotation: 0,
+                        maxTicksLimit: 5,
                         min: dateMin,
-                        max: dateMax,
-                        callback: function (value, index, values) {
-                            return index % 5 === 0 || index === values.length - 1 ? value : null;
-                        }
+                        max: dateMax
                     }
                 }],
                 yAxes: [{

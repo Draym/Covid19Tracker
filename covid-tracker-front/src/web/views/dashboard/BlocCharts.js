@@ -57,7 +57,7 @@ class BlocCharts extends CDataLoader {
 
     render() {
         return (
-            <CBlock loading={false} id="b-charts">
+            <CBlock loading={false} id="b-charts" cols="height-full">
                 <Nav tabs>
                     <NavItem>
                         <NavLink active={this.state.selectedTab === 0} onClick={() => this.selectTab(0)}>Global

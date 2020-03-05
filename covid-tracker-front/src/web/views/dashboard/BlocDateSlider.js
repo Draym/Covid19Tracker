@@ -44,15 +44,21 @@ class BlocDateSlider extends CDataLoader {
     }
 
     onDateSliderChange(value) {
-        this.setState({
-            currentSliderDate: this.state.data[value].date
-        });
-        this.props.onDateChange(this.state.data[value].date);
+        if (this.timeout) {
+            window.clearTimeout(this.timeout);
+        }
+        this.timeout = window.setTimeout(() => {
+            this.setState({
+                currentSliderDate: this.state.data[value].date
+            });
+            this.props.onDateChange(this.state.data[value].date);
+        }, 100);
     }
 
     render() {
+        console.log("========= dta", this.state.data);
         return (
-            <CBlock cols="col-12 col-md-9" loading={this.state.loading} id="b-dateslider">
+            <CBlock cols="col-12 col-sm-8 col-md-9" loading={this.state.loading} id="b-dateslider">
                 {this.state.data.length > 1 ?
                     <CSlider id="sliderDateValue"
                              onChange={this.onDateSliderChange}

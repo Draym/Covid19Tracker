@@ -39,18 +39,6 @@ footer .row {
   margin-bottom: 4px;
 }
 
-@media (min-width: 992px) {
-  .app-content div[class*='col-'] {
-    margin-bottom: 8px;
-  }
-  #b-header div[class*='col-'] {
-    margin: 0;
-  }
-  .app-content div[class*='col-'] ~ div[class*='col-'] {
-    padding-left: 0;
-  }
-}
-
 /*
 ** IMG
  */
@@ -213,6 +201,7 @@ a {
 }
 
 .b-title {
+  display: flow-root;
   text-align: center;
   font-size: 14px;
 }
@@ -272,6 +261,10 @@ a {
   margin-left: 10px;
 }
 
+#b-lastupdate-t1 {
+  font-size: 17px;
+}
+
 #b-lastupdate .app-block {
   padding-left: 10px;
 }
@@ -325,6 +318,79 @@ a {
   margin-bottom: 10px;
 }
 
+#b-death .b-cov-inc {
+  font-size: 80%;
+}
+
+
+@media (min-width: 576px) and (max-width: 1677px) {
+  #b-lastupdate .app-block {
+    display: block;
+  }
+}
+
+@media(max-width: 1405px) {
+  #b-recovered, #b-death, #b-confirmed {
+    height: 180px;
+  }
+}
+
+@media (max-width: 1290px) {
+  #b-header-t2, #b-header-t4 {
+    display: none;
+  }
+}
+
+@media (max-width: 1140px) {
+  #b-lastupdate-t2 span {
+    margin-left: 0;
+  }
+  #b-confirmed .b-cov-nb, #b-recovered .b-cov-nb, #b-death .b-cov-nb {
+    font-size: 60px;
+    line-height: 70px;
+  }
+  #b-confirmed .b-cov-inc, #b-recovered .b-cov-inc {
+    font-size: 16px;
+  }
+}
+
+@media(min-width: 768px) and (max-width: 1140px) {
+  #b-map, #b-bookmarks, #b-locations {
+    margin-bottom: 5px;
+  }
+  #b-map, #b-dateslider {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+}
+
+@media(min-width: 857px) and (max-width: 1139px) {
+
+  #b-confirmed .b-cov-nb, #b-recovered .b-cov-nb, #b-death .b-cov-nb {
+    font-size: 50px;
+    line-height: 70px;
+  }
+}
+
+@media(min-width: 768px) and (max-width: 856px) {
+  #b-confirmed .b-cov-nb, #b-recovered .b-cov-nb, #b-death .b-cov-nb {
+    font-size: 40px;
+    line-height: 70px;
+  }
+  #b-confirmed .b-cov-inc, #b-recovered .b-cov-inc {
+    font-size: 15px;
+  }
+  #b-death .b-cov-inc {
+    font-size: 14px;
+  }
+}
+
+@media(min-width: 768px) and (max-width: 1139px) {
+  #b-lastupdate-t2 span {
+    font-size: 18px;
+  }
+}
+
 @media(min-width: 768px) {
   #b-locations, #b-lastupdate {
     padding-right: 0;
@@ -334,24 +400,35 @@ a {
     padding-right: 0;
     padding-bottom: 0;
   }
-  #b-lastupdate, #b-social {
-    margin-bottom: 0;
+  div[class*='col-'] {
+    padding-right: 13px;
+  }
+  .app-content div[class*='col-'] {
+    margin-bottom: 8px;
+  }
+  #b-header div[class*='col-'] {
+    margin: 0;
+  }
+  .app-content div[class*='col-'] ~ div[class*='col-'] {
+    padding-left: 0;
   }
 }
 
 @media(max-width: 767px) {
+  #b-lastupdate-t1, {
+    font-size: 15px;
+  }
+  #b-lastupdate-t2 span {
+    font-size: 16px;
+  }
   #b-locations {
     height: 255px;
   }
-
   #b-locations ul {
     height: 200px;
   }
   #b-confirmed {
     margin-bottom: 5px;
-  }
-  #b-lastupdate .app-block {
-    font-size: 15px;
   }
   #b-recovered .b-cov-nb, #b-death .b-cov-nb {
     font-size: 40px;
@@ -363,20 +440,29 @@ a {
   #b-death .b-cov-inc {
     font-size: 14px;
   }
-  #b-header .width-full {
-    display: block;
-  }
-  #b-header-t2, #b-header-t4 {
-    display: none;
-  }
-}
-
-@media (max-width: 992px) {
   #b-recovered {
     padding-right: 5px;
   }
   #b-death {
     padding-left: 5px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  #b-dateslider {
+    padding-left: 0;
+  }
+  #b-lastupdate {
+    padding-right: 5px;
+  }
+  #b-lastupdate-t2 span {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 576px) {
+  #b-lastupdate, #b-social {
+    margin-bottom: 0;
   }
 }
 
@@ -541,10 +627,6 @@ a {
 }
 
 
-@media(max-width: 768px) {
-
-}
-
 /*
 ** POSITION
  */
@@ -656,7 +738,7 @@ a {
   left: unset !important;
 }
 
-@media(max-width: 768px) {
+@media(max-width: 767px) {
   .webmap {
     height: 500px;
   }
@@ -682,6 +764,10 @@ a {
 /*
 ** TABS
  */
+.nav {
+  flex-wrap: unset;
+  overflow: hidden;
+}
 
 .nav-item:hover {
   cursor: pointer;
@@ -710,6 +796,10 @@ a {
   margin-left: auto;
 }
 
+.nav-item-right .nav-link {
+  padding-left: 0;
+}
+
 .nav-tabs {
   border-color: rgba(163, 163, 163, 0.80) !important;
 }
@@ -719,6 +809,7 @@ a {
     padding: 0.2rem 0.2rem;
   }
 }
+
 /**
 ** CHART
  */

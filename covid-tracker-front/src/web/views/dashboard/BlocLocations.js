@@ -95,24 +95,30 @@ class BlocLocations extends Component {
 
     //{name: key, value: 0, states: [], open: false}
     onSearchChange(value) {
-        let result = [];
-        if (this.state.data != null && !TString.isNull(value)) {
-            for (let i in this.state.data) {
-                if (this.state.data[i].states.length > 1 && this.state.data[i].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                    result.push({state: "", country: this.state.data[i].name, confirmed: this.state.data[i].value});
-                }
-                for (let i2 in this.state.data[i].states) {
-                    if (this.state.data[i].states[i2].state.toLowerCase().indexOf(value.toLowerCase()) >= 0
-                        || this.state.data[i].states[i2].country.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                        result.push(this.state.data[i].states[i2]);
+        if (this.timeout) {
+            window.clearTimeout(this.timeout);
+        }
+        this.timeout = window.setTimeout(() => {
+            let result = [];
+            if (this.state.data != null && !TString.isNull(value)) {
+                for (let i in this.state.data) {
+                    if (this.state.data[i].states.length > 1 && this.state.data[i].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                        result.push({state: "", country: this.state.data[i].name, confirmed: this.state.data[i].value});
+                    }
+                    for (let i2 in this.state.data[i].states) {
+                        if (this.state.data[i].states[i2].state.toLowerCase().indexOf(value.toLowerCase()) >= 0
+                            || this.state.data[i].states[i2].country.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                            result.push(this.state.data[i].states[i2]);
+                        }
                     }
                 }
             }
-        }
-        result.sort((i1, i2) => {
-            return i1.value > i2.value;
-        });
-        this.setState({searchLocation: value, searchData: result});
+            result.sort((i1, i2) => {
+                return i1.value > i2.value;
+            });
+            this.setState({searchData: result});
+        }, 500);
+        this.setState({searchLocation: value});
     }
 
     render() {

@@ -34,8 +34,13 @@ class BlocLastUpdate extends CDataLoader {
     render() {
         console.log("DATE: ", moment(this.state.data).local().format("DD/MM/YYYY HH:mm:ss"));
         return (
-            <CBlock cols="col-12 col-md-3" className="v-align" loading={this.state.loading} id="b-lastupdate">
-                LAST UPDATE: <span>{moment(this.state.data).local().format("HH:mm[ -] DD MMM YYYY")}</span>
+            <CBlock cols="col-12 col-sm-4 col-md-3" className="v-align" loading={this.state.loading} id="b-lastupdate">
+                <div id="b-lastupdate-t1">
+                    LAST UPDATE :&nbsp;
+                </div>
+                <div id="b-lastupdate-t2">
+                    <span>{moment(this.state.data).local().format("HH:mm[ -] DD MMM YYYY")}</span>
+                </div>
             </CBlock>
         )
     }
