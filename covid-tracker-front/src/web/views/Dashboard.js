@@ -100,7 +100,7 @@ class Dashboard extends CDataLoader {
                             <BlocDateSlider onDateChange={this.updateCurrentDate} startDate={this.state.currentDate}/>
                         </div>
                     </div>
-                    <div className="col-12 col-md-2 pl-0">
+                    <div className="col-12 col-md-2">
                         <div className="row">
                             <BlocBookmarks key={this.state.bookmarkReload} onBookmarkClick={this.onBookmarkClick} onBookmarksChange={this.onBookmarksChange}/>
                         </div>

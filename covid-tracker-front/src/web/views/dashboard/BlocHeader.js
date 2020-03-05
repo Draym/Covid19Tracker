@@ -49,8 +49,13 @@ class BlocHeader extends Component {
                         <div className="v-align">
                             <CImg data={Library.logo} height={30}/>
                         </div>
-                        <div className="v-align">COVID-19 Impact by <a className="link-lab" href="http://draymlab.fr"
-                                                                       target="draymlab.fr">DraymLab</a> &copy; 2020.
+                        <div className="v-align">
+                            <div id="b-header-t1">COVID-19 Impact</div>
+                            <div id="b-header-t2">&nbsp;by</div>
+                            <div id="b-header-t3"><a className="link-lab" href="http://draymlab.fr"
+                                                     target="draymlab.fr">DraymLab</a>
+                            </div>
+                            <div id="b-header-t4"> &copy; 2020.</div>
                         </div>
                     </div>
                     <div className="col-12 col-md-7 title">

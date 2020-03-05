@@ -259,20 +259,11 @@ a {
   height: 537px;
 }
 
-#b-locations, #b-lastupdate {
-  padding-right: 0;
-}
-
-#b-locations .app-block {
-  padding-right: 0;
-  padding-bottom: 0;
-}
-
 #b-locations .app-block .input-group {
   margin-bottom: 10px;
 }
 
-#b-lastupdate, #b-dateslider, #b-social {
+#b-dateslider {
   margin-bottom: 0;
 }
 
@@ -305,12 +296,12 @@ a {
   font-weight: 600;
 }
 
-#b-charts .app-block {
-  padding-bottom: 0;
-}
-
 #b-charts .nav {
   font-size: 12px;
+}
+
+#b-charts .app-block {
+  padding-bottom: 0;
 }
 
 #b-recovered, #b-death, #b-confirmed {
@@ -320,11 +311,6 @@ a {
 
 #b-map .app-block {
   padding: 0;
-}
-
-#b-bookmarks .app-block {
-  padding-bottom: 0;
-  padding-right: 0;
 }
 
 #b-social {
@@ -337,6 +323,52 @@ a {
   padding-left: 5px;
   margin-top: 5px;
   margin-bottom: 10px;
+}
+
+@media(min-width: 768px) {
+  #b-locations, #b-lastupdate {
+    padding-right: 0;
+  }
+
+  #b-locations .app-block, #b-bookmarks .app-block {
+    padding-right: 0;
+    padding-bottom: 0;
+  }
+  #b-lastupdate, #b-social {
+    margin-bottom: 0;
+  }
+}
+
+@media(max-width: 767px) {
+  #b-locations {
+    height: 255px;
+  }
+
+  #b-locations ul {
+    height: 200px;
+  }
+  #b-confirmed {
+    margin-bottom: 5px;
+  }
+  #b-lastupdate .app-block {
+    font-size: 15px;
+  }
+  #b-recovered .b-cov-nb, #b-death .b-cov-nb {
+    font-size: 40px;
+    line-height: 55px;
+  }
+  #b-recovered .b-cov-inc {
+    font-size: 16px;
+  }
+  #b-death .b-cov-inc {
+    font-size: 14px;
+  }
+  #b-header .width-full {
+    display: block;
+  }
+  #b-header-t2, #b-header-t4 {
+    display: none;
+  }
 }
 
 @media (max-width: 992px) {
@@ -508,6 +540,11 @@ a {
   max-height: 475px;
 }
 
+
+@media(max-width: 768px) {
+
+}
+
 /*
 ** POSITION
  */
@@ -619,6 +656,12 @@ a {
   left: unset !important;
 }
 
+@media(max-width: 768px) {
+  .webmap {
+    height: 500px;
+  }
+}
+
 /*
 ** BUTTON
  */
@@ -671,6 +714,11 @@ a {
   border-color: rgba(163, 163, 163, 0.80) !important;
 }
 
+@media(max-width: 767px) {
+  .nav-link {
+    padding: 0.2rem 0.2rem;
+  }
+}
 /**
 ** CHART
  */
