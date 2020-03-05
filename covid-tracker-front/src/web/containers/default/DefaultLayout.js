@@ -2,14 +2,19 @@ import React, {Component, Suspense} from "react";
 import {Container} from 'reactstrap';
 import {Redirect, Route, Switch} from "react-router-dom";
 import AuthUtils from "../../../utils/auth/AuthUtils";
-
-// routesDefault config
 import routes from '../../../routes/routes-default';
 import {RoutesEndpoint} from "../../../utils/RoutesEndpoint";
+import ClipLoader from "react-spinners/ClipLoader";
 
 class DefaultLayout extends Component {
 
-    loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>;
+    loading = () => <div className="animated fadeIn h-align v-align width-full" style={{height: "700px"}}>
+        <ClipLoader
+            size={80}
+            color={"#d2d2d2"}
+            loading={true}
+        />
+    </div>;
 
     render() {
         return (
@@ -29,7 +34,8 @@ class DefaultLayout extends Component {
                                                 render={props => (
                                                     (!route.restricted || AuthUtils.isAuthorized(route.restricted) ?
                                                         <route.component {...props} /> :
-                                                        <Redirect to={{pathname: '/404', state: {from: props.location}}}/>)
+                                                        <Redirect
+                                                            to={{pathname: '/404', state: {from: props.location}}}/>)
                                                 )}/>
                                         ) : null;
                                     })}
@@ -43,5 +49,9 @@ class DefaultLayout extends Component {
         )
     }
 }
+
+/*
+
+ */
 
 export default DefaultLayout;

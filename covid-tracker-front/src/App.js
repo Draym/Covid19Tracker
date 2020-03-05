@@ -11,7 +11,8 @@ import { faBookmark as farBookmark } from '@fortawesome/free-regular-svg-icons';
 
 library.add(faHandHoldingHeart, faChevronDown, faChevronUp, fasBookmark, farBookmark, faSearchLocation, faTimes, faRss, faPhotoVideo, faVideo);
 
-const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
+
+const loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>;
 
 function App() {
     return (
