@@ -38,7 +38,7 @@ class BlocDateSlider extends CDataLoader {
     formatData(flatData) {
         this.setState({sliderValue: flatData.length - 1});
         flatData.sort(function (i1, i2) {
-            return TDate.isGreater(i1.date, i2.date);
+            return !TDate.isGreater(i1.date, i2.date);
         });
         return flatData;
     }
