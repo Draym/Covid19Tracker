@@ -134,7 +134,7 @@ class CMap extends Component {
                         })
                     });
                 }.bind(this));
-                console.log("::::: EDIT MAP: ", graphics, this.graphics);
+                //console.log("::::: EDIT MAP: ", graphics, this.graphics);
                 this.featureLayer.applyEdits({
                     deleteFeatures: this.graphics,
                     addFeatures: graphics

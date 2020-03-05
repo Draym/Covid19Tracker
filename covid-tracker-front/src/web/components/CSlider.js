@@ -45,7 +45,7 @@ class CSlider extends Component {
 
     calculateSliderHover(event) {
         let mousePos = (event.offsetX / event.target.clientWidth) * parseInt(event.target.getAttribute('max'), 10);
-        let value = mousePos.toFixed(0);
+        let value = mousePos  | 0;
         if (value !== this.state.hoverValue) {
             this.setState({hoverValue: value});
         }

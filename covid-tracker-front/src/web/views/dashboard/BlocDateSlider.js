@@ -58,7 +58,6 @@ class BlocDateSlider extends CDataLoader {
     }
 
     render() {
-        console.log("========= dta", this.state.data, this.state.loading);
         return (
             <CBlock cols="col-12 col-sm-8 col-md-9" loading={this.state.loading} id="b-dateslider">
                 {this.state.data.length > 1 ?
