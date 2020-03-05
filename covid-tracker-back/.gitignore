@@ -35,5 +35,5 @@ build/
 logs
 
 ### DEV & PROD properties ###
-/src/main/ressources/application-dev.properties
-/src/main/ressources/application-prod.properties
+/src/main/resources/application-dev.properties
+/src/main/resources/application-prod.properties
