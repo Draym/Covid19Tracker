@@ -39,7 +39,7 @@ class BlocCharts extends CDataLoader {
 
     formatData(flatData) {
         flatData.sort(function (i1, i2) {
-            return TDate.isGreater(i1.date, i2.date);
+            return TDate.minus(i1.date, i2.date);
         });
         return flatData;
     }

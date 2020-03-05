@@ -23,7 +23,8 @@ class BlocLocations extends Component {
             data: null,
             searchData: [],
             location: {state: "", country: ""},
-            searchLocation: ""
+            searchLocation: "",
+            sortedKeys: []
         };
         this.initData = this.initData.bind(this);
         this.openDataInfo = this.openDataInfo.bind(this);
@@ -49,7 +50,17 @@ class BlocLocations extends Component {
             result[key].value += data[i].confirmed;
             result[key].states.push(data[i]);
         }
-        this.setState({data: result});
+        let sortedKeys = Object.keys(result).sort(function (a, b) {
+            return result[b].value - result[a].value
+        });
+        for (let key in result) {
+            if (result[key].states.length > 1) {
+                result[key].states.sort((a, b) => {
+                    return b.confirmed - a.confirmed
+                });
+            }
+        }
+        this.setState({data: result, sortedKeys: sortedKeys});
     }
 
     openDataInfo(key, event) {
@@ -114,7 +125,7 @@ class BlocLocations extends Component {
                 }
             }
             result.sort((i1, i2) => {
-                return i1.value > i2.value;
+                return i2.confirmed - i1.confirmed;
             });
             this.setState({searchData: result});
         }, 500);
@@ -123,7 +134,7 @@ class BlocLocations extends Component {
 
     render() {
         let renderData = function () {
-            return Object.keys(this.state.data).map((key, i) => {
+            return this.state.sortedKeys.map((key, i) => {
                 if (this.state.data[key].states.length === 1) {
                     return (
                         <li key={i} className={this.isLocationActive("", this.state.data[key].name)}

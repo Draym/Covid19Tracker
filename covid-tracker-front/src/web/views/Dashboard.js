@@ -41,9 +41,6 @@ class Dashboard extends CDataLoader {
     }
 
     formatData(flatData) {
-        flatData.sort(function (i1, i2) {
-            return i1.confirmed < i2.confirmed;
-        });
         return flatData;
     }
 

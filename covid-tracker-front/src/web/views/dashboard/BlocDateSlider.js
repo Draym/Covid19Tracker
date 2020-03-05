@@ -18,13 +18,13 @@ class BlocDateSlider extends CDataLoader {
         super(props);
         this.initState({
             cp_name: "SLIDER",
-            data: [],
-            currentSliderDate: props.date
+            data: []
         });
         this.getEndpoint = this.getEndpoint.bind(this);
         this.getParameters = this.getParameters.bind(this);
         this.formatData = this.formatData.bind(this);
         this.onDateSliderChange = this.onDateSliderChange.bind(this);
+        this.getSliderTipText = this.getSliderTipText.bind(this);
     }
 
     getEndpoint() {
@@ -32,31 +32,33 @@ class BlocDateSlider extends CDataLoader {
     }
 
     getParameters() {
-        return this.props.parameters;
+        return null;
     }
 
     formatData(flatData) {
         this.setState({sliderValue: flatData.length - 1});
         flatData.sort(function (i1, i2) {
-            return TDate.isGreater(i1.date, i2.date);
+            return TDate.minus(i1.date, i2.date);
         });
         return flatData;
     }
-
+    getSliderTipText(value) {
+        if (value < this.state.data.length) {
+            return this.state.data[value].date;
+        }
+        return value;
+    }
     onDateSliderChange(value) {
         if (this.timeout) {
             window.clearTimeout(this.timeout);
         }
         this.timeout = window.setTimeout(() => {
-            this.setState({
-                currentSliderDate: this.state.data[value].date
-            });
             this.props.onDateChange(this.state.data[value].date);
         }, 100);
     }
 
     render() {
-        console.log("========= dta", this.state.data);
+        console.log("========= dta", this.state.data, this.state.loading);
         return (
             <CBlock cols="col-12 col-sm-8 col-md-9" loading={this.state.loading} id="b-dateslider">
                 {this.state.data.length > 1 ?
@@ -68,7 +70,7 @@ class BlocDateSlider extends CDataLoader {
                              sliderLabelEnd={this.state.data[this.state.data.length - 1].date}
                              min={0}
                              max={this.state.data.length - 1}
-                             sliderTipText={this.state.currentSliderDate}/>
+                             getSliderTipText={this.getSliderTipText}/>
                     : null}
             </CBlock>
         )
