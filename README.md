@@ -1,7 +1,7 @@
-# Covid19 Tracker - [now online](http://covid19.draymlab.fr/)
+# Covid19 Coronavirus Tracker - [now online](http://covid19.draymlab.fr/)
 
 
-Dashboard to track the cases of the Coronavirus COVID-19 worldwide
+Dashboard to track the cases of the Coronavirus COVID-19 worldwide. It offers a world map, data charts and a social component to host amator video about ongoing situation in touched cities.
 
 
 <br/>
