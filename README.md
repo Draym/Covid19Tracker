@@ -2,10 +2,17 @@
 
 
 Dashboard to track the cases of the Coronavirus COVID-19 worldwide
+
+
+<br/>
+
 -------------------------------------------------------------------------------------------  
 ## DATA : 
 
 The data are pulled daily from [CSSEGISandData](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data).
+
+
+<br/>
 
 -------------------------------------------------------------------------------------------  
 ## Stack : 
@@ -13,6 +20,9 @@ The data are pulled daily from [CSSEGISandData](https://github.com/CSSEGISandDat
 -Front in ReactJS, using Chartjs and Arcgis map 
 
 -Back in SpringBoot, JPA and Mysql
+
+
+<br/>
 
 -------------------------------------------------------------------------------------------  
 ## Content : 
