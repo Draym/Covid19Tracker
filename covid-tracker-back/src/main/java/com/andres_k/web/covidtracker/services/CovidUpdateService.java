@@ -98,20 +98,16 @@ public class CovidUpdateService {
     }
 
     private Map<String, List<CovidData>> loadFullDataFromAPIs(String optDate) throws Exception {
-        try {
-            Map<String, List<CovidData>> result = new HashMap<>();
-            Map<String, Map<String, CovidData>> data = new HashMap<>();
-            this.loadAPIFullData(APIEndpoint.DATA_github_death.getEndpoint(), data, "death", optDate);
-            this.loadAPIFullData(APIEndpoint.DATA_github_confirmed.getEndpoint(), data, "confirmed", optDate);
-            this.loadAPIFullData(APIEndpoint.DATA_github_recovered.getEndpoint(), data, "recovered", optDate);
+        Map<String, List<CovidData>> result = new HashMap<>();
+        Map<String, Map<String, CovidData>> data = new HashMap<>();
+        this.loadAPIFullData(APIEndpoint.DATA_github_death.getEndpoint(), data, "death", optDate);
+        this.loadAPIFullData(APIEndpoint.DATA_github_confirmed.getEndpoint(), data, "confirmed", optDate);
+        this.loadAPIFullData(APIEndpoint.DATA_github_recovered.getEndpoint(), data, "recovered", optDate);
 
-            for (Map.Entry<String, Map<String, CovidData>> entry : data.entrySet()) {
-                result.put(entry.getKey(), new ArrayList<>(entry.getValue().values()));
-            }
-            return result;
-        } catch (HttpClientErrorException e) {
-            throw e;
+        for (Map.Entry<String, Map<String, CovidData>> entry : data.entrySet()) {
+            result.put(entry.getKey(), new ArrayList<>(entry.getValue().values()));
         }
+        return result;
     }
 
     private void loadAPIFullData(String endpoint, Map<String, Map<String, CovidData>> data, String entryID, String optDate) throws Exception {
@@ -140,7 +136,8 @@ public class CovidUpdateService {
                 if (optDate != null && !TDate.isGreater(date, optDate)) {
                     continue;
                 }
-                Integer value = Integer.parseInt(parsedResult.get(i).get(i2 + 4));
+                String tmp = parsedResult.get(i).get(i2 + 4);
+                Integer value = TString.isNull(tmp) ? 0 : Integer.parseInt(tmp);
                 CovidData item;
                 if (!data.get(key).containsKey(date)) {
                     item = new CovidData(state, country, latitude, longitude, date);
