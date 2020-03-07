@@ -14,7 +14,6 @@
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "esri-loader": "^2.13.0",
-    "http-proxy-middleware": "^1.0.0",
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
@@ -26,6 +25,9 @@
     "react-spinners": "^0.8.0",
     "react-tooltip": "^4.0.3",
     "reactstrap": "^8.4.1"
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

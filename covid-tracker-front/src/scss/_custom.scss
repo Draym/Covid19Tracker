@@ -341,7 +341,7 @@ a {
   }
 }
 
-@media (max-width: 1140px) {
+@media (max-width: 1310px) {
   #b-lastupdate-t2 span {
     margin-left: 0;
   }
@@ -364,18 +364,16 @@ a {
   }
 }
 
-@media(min-width: 857px) and (max-width: 1139px) {
+@media(min-width: 900px) and (max-width: 1145px) {
 
   #b-confirmed .b-cov-nb, #b-recovered .b-cov-nb, #b-death .b-cov-nb {
-    font-size: 50px;
-    line-height: 70px;
+    font-size: 45px;
   }
 }
 
-@media(min-width: 768px) and (max-width: 856px) {
+@media(min-width: 768px) and (max-width: 899px) {
   #b-confirmed .b-cov-nb, #b-recovered .b-cov-nb, #b-death .b-cov-nb {
-    font-size: 40px;
-    line-height: 70px;
+    font-size: 35px;
   }
   #b-confirmed .b-cov-inc, #b-recovered .b-cov-inc {
     font-size: 15px;
