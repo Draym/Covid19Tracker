@@ -1,16 +1,16 @@
 import ChartUtils from "../../../../utils/chart/ChartUtils";
 import EColorPicker from "../../../../utils/enum/EColorPicker";
 import TDate from "../../../../utils/TDate";
-import BaseLineChart from "./BaseLineChart";
+import CDateLineChart from "../../../components/chart/CDateLineChart";
 import TPrettyNbr from "../../../../utils/TPrettyNbr";
 
 const propTypes = {
-    ...BaseLineChart.propTypes
+    ...CDateLineChart.propTypes
 };
 
 const defaultProps = {};
 
-class GlobalOverviewChart extends BaseLineChart {
+class GlobalOverviewChart extends CDateLineChart {
     constructor(props) {
         super(props);
         this.createDataset = this.createDataset.bind(this);
@@ -42,7 +42,7 @@ class GlobalOverviewChart extends BaseLineChart {
     }
 
     getChartOption() {
-        let conf = ChartUtils.GetDefaultDateLineChartOpt(22, this.state.chartUnit, this.state.dateMin, this.state.dateMax, null, this.getCbTooltip ? this.getCbTooltip() : null);
+        let conf = super.getChartOption();
         conf.tooltips.mode = "index";
         conf.tooltips.intersect = false;
         conf.tooltips.position = "nearest";

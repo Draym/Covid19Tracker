@@ -5,8 +5,8 @@ import {ApiEndpoint} from "../../../utils/api/ApiEndpoint";
 import {Nav, NavItem, NavLink} from "reactstrap";
 import GlobalOverviewChart from "./charts/GlobalOverviewChart";
 import TDate from "../../../utils/TDate";
-import ConfirmedCasesChart from "./charts/ConfirmedCasesChart";
-import DeathRateChart from "./charts/DeathRateChart";
+import ConfirmedIncreaseChart from "./charts/ConfirmedIncreaseChart";
+import CasesStateChart from "./charts/CasesStateChart";
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -65,11 +65,11 @@ class BlocCharts extends CDataLoader {
                     </NavItem>
                     <NavItem>
                         <NavLink active={this.state.selectedTab === 1} onClick={() => this.selectTab(1)}>Confirmed
-                            Cases</NavLink>
+                            Increase</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink active={this.state.selectedTab === 2} onClick={() => this.selectTab(2)}>Death
-                            Rate</NavLink>
+                        <NavLink active={this.state.selectedTab === 2} onClick={() => this.selectTab(2)}>Cases
+                            State</NavLink>
                     </NavItem>
                     <NavItem className="nav-item-disabled nav-item-right">
                         <NavLink>38 days</NavLink>
@@ -78,10 +78,10 @@ class BlocCharts extends CDataLoader {
                 <div className="margin-auto pt-2">
                     <GlobalOverviewChart data={this.state.data} loading={this.isLoadingChart}
                                          height={185} visible={this.state.selectedTab === 0}/>
-                    <ConfirmedCasesChart data={this.state.data} loading={this.isLoadingChart}
-                                         height={185} visible={this.state.selectedTab === 1}/>
-                    <DeathRateChart data={this.state.data} loading={this.isLoadingChart}
-                                    height={185} visible={this.state.selectedTab === 2}/>
+                    <ConfirmedIncreaseChart data={this.state.data} loading={this.isLoadingChart}
+                                            height={185} visible={this.state.selectedTab === 1}/>
+                    <CasesStateChart data={this.state.data} loading={this.isLoadingChart}
+                                     height={185} visible={this.state.selectedTab === 2}/>
                 </div>
             </CBlock>
         )

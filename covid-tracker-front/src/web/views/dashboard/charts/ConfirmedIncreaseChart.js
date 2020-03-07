@@ -1,16 +1,16 @@
 import ChartUtils from "../../../../utils/chart/ChartUtils";
 import EColorPicker from "../../../../utils/enum/EColorPicker";
 import TDate from "../../../../utils/TDate";
-import BaseLineChart from "./BaseLineChart";
+import CDateLineChart from "../../../components/chart/CDateLineChart";
 import TPrettyNbr from "../../../../utils/TPrettyNbr";
 
 const propTypes = {
-    ...BaseLineChart.propTypes
+    ...CDateLineChart.propTypes
 };
 
 const defaultProps = {};
 
-class ConfirmedCasesChart extends BaseLineChart {
+class ConfirmedIncreaseChart extends CDateLineChart {
     constructor(props) {
         super(props);
         this.createDataset = this.createDataset.bind(this);
@@ -35,13 +35,13 @@ class ConfirmedCasesChart extends BaseLineChart {
 
     createDataset(flatData) {
         let datasets = [];
-        datasets.push(this.createDataBloc(flatData, "New cases", "addConfirmed", EColorPicker.RED(0.9), "y1"));
         datasets.push(this.createDataBloc(flatData, "Cases increase %", "incConfirmed", EColorPicker.LIGHTBLUE(0.9), "y2"));
+        datasets.push(this.createDataBloc(flatData, "New cases", "addConfirmed", EColorPicker.RED(0.9), "y1"));
         return datasets;
     }
 
     getChartOption() {
-        let conf = ChartUtils.GetDefaultDateLineChartOpt(22, this.state.chartUnit, this.state.dateMin, this.state.dateMax, null, this.getCbTooltip ? this.getCbTooltip() : null);
+        let conf = super.getChartOption();
         conf.scales.yAxes.push({
             id: "y2",
             position: "right",
@@ -78,7 +78,7 @@ class ConfirmedCasesChart extends BaseLineChart {
     }
 }
 
-ConfirmedCasesChart.defaultProps = defaultProps;
-ConfirmedCasesChart.propTypes = propTypes;
+ConfirmedIncreaseChart.defaultProps = defaultProps;
+ConfirmedIncreaseChart.propTypes = propTypes;
 
-export default ConfirmedCasesChart;
+export default ConfirmedIncreaseChart;

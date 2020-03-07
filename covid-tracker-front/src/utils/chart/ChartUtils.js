@@ -2,13 +2,14 @@ import TPrettyNbr from "../TPrettyNbr";
 
 class ChartUtils {
 
-    static GetDefaultDateLineChartOpt(lineWidth, dateUnit, dateMin, dateMax, stepSize, cbTooltip, dateFormat) {
+    static GetDefaultDateLineChartOpt(lineWidth, dateUnit, dateMin, dateMax, stepSize, cbTooltip, dateFormat, stackedX, stackedY, maxX) {
         return {
             responsive: true,
             maintainAspectRatio: false,
             legend: {position: 'bottom'},
             scales: {
                 xAxes: [{
+                    stacked: stackedX != null ? stackedX : false,
                     title: "time",
                     type: 'time',
                     time: {
@@ -34,12 +35,14 @@ class ChartUtils {
                     }
                 }],
                 yAxes: [{
+                    stacked: stackedY != null ? stackedY : false,
                     id: "y1",
                     ticks: {
                         stepSize: stepSize ? stepSize : null,
                         callback: function (value, index, values) {
                             return index % 3 === 0 || index === values.length - 1 ? TPrettyNbr.pretify(value) : null;
-                        }
+                        },
+                        max: maxX
                     }
                 }]
             },

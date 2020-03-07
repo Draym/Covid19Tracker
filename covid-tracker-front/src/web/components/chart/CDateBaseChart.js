@@ -1,9 +1,7 @@
 import React from "react";
-import {Line} from "react-chartjs-2";
 import PropTypes from 'prop-types';
-import ChartUtils from "../../../../utils/chart/ChartUtils";
-import TDate from "../../../../utils/TDate";
-import CComponent from "../../../components/CComponent";
+import TDate from "../../../utils/TDate";
+import CComponent from "../CComponent";
 
 const propTypes = {
     width: PropTypes.number,
@@ -14,7 +12,7 @@ const propTypes = {
 
 const defaultProps = {};
 
-class BaseLineChart extends CComponent {
+class CDateBaseChart extends CComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,7 +23,8 @@ class BaseLineChart extends CComponent {
         };
         this.initializeData = this.initializeData.bind(this);
         this.drawChart = this.drawChart.bind(this);
-        if (!(typeof this.createDataset === "function")) {
+        if (!(typeof this.createDataset === "function")
+            || !(typeof this.drawChart === "function")) {
             throw new TypeError("Must override method");
         }
     }
@@ -55,29 +54,12 @@ class BaseLineChart extends CComponent {
         this.props.loading(false, null);
     }
 
-    getChartOption() {
-        return ChartUtils.GetDefaultDateLineChartOpt(22, this.state.chartUnit, this.state.dateMin, this.state.dateMax, null, this.getCbTooltip ? this.getCbTooltip() : null)
-    }
-
-    drawChart() {
-        if (this.state.data && this.state.data.datasets && this.state.data.datasets.length > 0) {
-            return (
-                <div className="chart-wrapper" style={{width: this.props.width, height: this.props.height }}>
-                    <Line data={this.state.data}
-                          options={this.getChartOption()}
-                    />
-                </div>
-            );
-        }
-        return null;
-    }
-
     render() {
         return (this.props.visible ? this.drawChart() : null);
     }
 }
 
-BaseLineChart.defaultProps = defaultProps;
-BaseLineChart.propTypes = propTypes;
+CDateBaseChart.defaultProps = defaultProps;
+CDateBaseChart.propTypes = propTypes;
 
-export default BaseLineChart;
+export default CDateBaseChart;

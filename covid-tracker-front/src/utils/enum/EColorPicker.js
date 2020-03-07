@@ -28,8 +28,8 @@ let EColorPicker = function () {
     /**
      * @return {string}
      */
-    YELLOW2: function (a) {
-      return (a ? 'rgba(255,193,7, ' + a + ')' : 'rgb(255,253,0)');
+    LIGHTYELLOW: function (a) {
+      return (a ? 'rgba(247,255,166, ' + a + ')' : 'rgb(247,255,166)');
     },
     /**
      * @return {string}
