@@ -9,28 +9,40 @@ class CMap extends Component {
         this.mapRef = React.createRef();
     }
 
+
     create(data, cb) {
         loadModules(['esri/Map', 'esri/views/MapView', "esri/layers/FeatureLayer", "esri/Graphic", "esri/geometry/Point"], {css: true})
             .then(([Map, MapView, FeatureLayer, Graphic, Point]) => {
                 this.map = new Map({
                     basemap: 'dark-gray-vector'
                 });
-                this.graphics = data.map(function (place) {
-                    return new Graphic({
-                        attributes: {
-                            ObjectID: place.id,
-                            name: (!TString.isNull(place.state) ? (place.state + ", ") : "") + place.country,
-                            confirmed: place.confirmed,
-                            recovered: place.recovered,
-                            death: place.death,
-                            existing: place.confirmed - place.recovered - place.death,
-                        },
-                        geometry: new Point({
-                            longitude: place.longitude,
-                            latitude: place.latitude
-                        })
-                    });
-                }.bind(this));
+
+                this.createGraphic = function (data) {
+                    let graphics = [];
+                    for (let i in data) {
+                        if (data[i].confirmed === 0) {
+                            continue;
+                        }
+                        graphics.push(new Graphic({
+                            attributes: {
+                                ObjectID: data[i].id,
+                                name: (!TString.isNull(data[i].state) ? (data[i].state + ", ") : "") + data[i].country,
+                                confirmed: data[i].confirmed,
+                                recovered: data[i].recovered,
+                                death: data[i].death,
+                                existing: data[i].confirmed - data[i].recovered - data[i].death,
+                            },
+                            geometry: new Point({
+                                longitude: data[i].longitude,
+                                latitude: data[i].latitude
+                            })
+                        }));
+                    }
+                    return graphics
+                };
+
+                this.graphics = this.createGraphic(data);
+
 
                 this.featureLayer = new FeatureLayer({
                     source: this.graphics,
@@ -116,43 +128,25 @@ class CMap extends Component {
     }
 
     update(data) {
-        loadModules(["esri/Graphic", "esri/geometry/Point"])
-            .then(([Graphic, Point]) => {
-                let graphics = data.map(function (place) {
-                    return new Graphic({
-                        attributes: {
-                            ObjectID: place.id,
-                            name: (!TString.isNull(place.state) ? (place.state + "-") : "") + place.country,
-                            confirmed: place.confirmed,
-                            recovered: place.recovered,
-                            death: place.death,
-                            existing: place.confirmed - place.recovered - place.death,
-                        },
-                        geometry: new Point({
-                            longitude: place.longitude,
-                            latitude: place.latitude
-                        })
-                    });
-                }.bind(this));
-                //console.log("::::: EDIT MAP: ", graphics, this.graphics);
-                this.featureLayer.applyEdits({
-                    deleteFeatures: this.graphics,
-                    addFeatures: graphics
-                }).then(function (results) {
-                    //console.log("Result EDIT:", results);
-                    if (results.deleteFeatureResults.length > 0){
-                    }
-                    if (results.addFeatureResults.length > 0){
-                    }
-                    if (this.graphics.length > 400) {
-                        this.graphics = graphics;
-                    } else {
-                        this.graphics = this.graphics.concat(graphics);
-                    }
-                }.bind(this)).catch(function (error) {
-                    console.error("[ applyEdits ] FAILURE: ", error.code, error.name, error.message);
-                });
-            });
+        let graphics = this.createGraphic(data);
+        //console.log("::::: EDIT MAP: ", graphics, this.graphics);
+        this.featureLayer.applyEdits({
+            deleteFeatures: this.graphics,
+            addFeatures: graphics
+        }).then(function (results) {
+            //console.log("Result EDIT:", results);
+            if (results.deleteFeatureResults.length > 0) {
+            }
+            if (results.addFeatureResults.length > 0) {
+            }
+            if (this.graphics.length > 400) {
+                this.graphics = graphics;
+            } else {
+                this.graphics = this.graphics.concat(graphics);
+            }
+        }.bind(this)).catch(function (error) {
+            console.error("[ applyEdits ] FAILURE: ", error.code, error.name, error.message);
+        });
     }
 
     componentWillUnmount() {
