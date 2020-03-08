@@ -35,8 +35,8 @@ class ConfirmedIncreaseChart extends CDateLineChart {
 
     createDataset(flatData) {
         let datasets = [];
-        datasets.push(this.createDataBloc(flatData, "Cases increase %", "incConfirmed", EColorPicker.LIGHTBLUE(0.9), "y2"));
         datasets.push(this.createDataBloc(flatData, "New cases", "addConfirmed", EColorPicker.RED(0.9), "y1"));
+        datasets.push(this.createDataBloc(flatData, "Cases increase %", "incConfirmed", EColorPicker.LIGHTBLUE(0.9), "y2"));
         return datasets;
     }
 
