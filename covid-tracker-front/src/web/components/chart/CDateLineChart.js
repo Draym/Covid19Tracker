@@ -12,7 +12,7 @@ const defaultProps = {};
 class CDateLineChart extends CDateBaseChart {
     getChartOption() {
         return ChartUtils.GetDefaultDateLineChartOpt(22, this.state.chartUnit, this.state.dateMin,
-            this.state.dateMax, null, this.getCbTooltip ? this.getCbTooltip() : null)
+            this.state.dateMax, null, this.getCbTooltip ? this.getCbTooltip() : null);
     }
 
     drawChart() {

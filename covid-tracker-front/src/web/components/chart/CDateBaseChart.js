@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from 'prop-types';
 import TDate from "../../../utils/TDate";
 import CComponent from "../CComponent";

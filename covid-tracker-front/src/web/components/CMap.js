@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {loadModules} from 'esri-loader';
 import TString from "../../utils/TString";
-import TArray from "../../utils/TArray";
 
 class CMap extends Component {
     constructor(props) {
