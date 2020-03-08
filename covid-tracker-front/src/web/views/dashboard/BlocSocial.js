@@ -11,7 +11,7 @@ class BlocSocial extends Component {
                     Free Feeds<FontAwesomeIcon icon="rss" className="ml-2"/>
                     <Button className="float-right btn-shallow hvr-icon-pulse">Clip <FontAwesomeIcon icon="video" className="hvr-icon"/></Button>
                 </p>
-                <div className="v-align h-align" style={{height: "475px"}}>
+                <div className="v-align h-align" style={{height: "484px"}}>
                     <FontAwesomeIcon icon="photo-video" style={{"fontSize": "50px"}}/>
                 </div>
             </CBlock>

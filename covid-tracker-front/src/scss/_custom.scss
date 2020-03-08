@@ -2,7 +2,8 @@ body {
   /*font-family: Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
   font-family: "brandon grotesque", brandon, helvetica, sans-serif;
   overflow-x: hidden;
-  background-color: #1c1d1d;
+  //v1 background-color: #1c1d1d;
+  background-color: #262f40;
   color: #bdbdbd;
   padding: 0;
   margin: 0;
@@ -176,9 +177,11 @@ a {
  */
 
 .app-block {
-  background-color: rgba(81, 84, 84, 0.5);
+  /*v1 background-color: rgba(81, 84, 84, 0.5);
+  border: 1px solid rgba(124, 124, 124, 0.73);*/
+  background-color: rgba(29, 33, 38, 0.88);
+  border: 1px solid rgba(232, 232, 232, 0.5);
   color: white;
-  border: 1px solid rgba(124, 124, 124, 0.73);
   border-radius: 2px;
   height: 100%;
   width: 100%;
@@ -241,11 +244,11 @@ a {
 }
 
 #b-locations {
-  height: 592px;
+  height: 600px;
 }
 
 #b-locations ul {
-  height: 537px;
+  height: 545px;
 }
 
 #b-locations .app-block .input-group {
@@ -621,7 +624,7 @@ a {
   padding: 0;
   margin-bottom: 0;
   overflow-y: auto;
-  max-height: 475px;
+  max-height: 484px;
 }
 
 
