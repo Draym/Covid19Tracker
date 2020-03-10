@@ -56,6 +56,11 @@ class BlocCharts extends CDataLoader {
     }
 
     render() {
+        let numberDays = 0;
+
+        if (this.state.data && this.state.data.length > 0) {
+            numberDays = TDate.minus(this.state.data[this.state.data.length - 1].date, this.state.data[0].date, "days");
+        }
         return (
             <CBlock loading={false} id="b-charts" cols="height-full">
                 <Nav tabs>
@@ -72,7 +77,7 @@ class BlocCharts extends CDataLoader {
                             State</NavLink>
                     </NavItem>
                     <NavItem className="nav-item-disabled nav-item-right">
-                        <NavLink>38 days</NavLink>
+                        <NavLink>{numberDays} days</NavLink>
                     </NavItem>
                 </Nav>
                 <div className="margin-auto pt-2">

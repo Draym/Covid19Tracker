@@ -59,14 +59,12 @@ class CMap extends Component {
                             {
                                 type: "size",
                                 field: "CONFIRMED",
-                                stops: [{value: 10, size: 5},
-                                    {value: 100, size: 14},
-                                    {value: 500, size: 28},
-                                    {value: 1000, size: 50},
-                                    {value: 5000, size: 80},
-                                    {value: 10000, size: 100},
-                                    {value: 50000, size: 120},
-                                    {value: 1000000, size: 160}]
+                                stops: [{value: 1, size: 3},
+                                    {value: 100, size: 15},
+                                    {value: 500, size: 25},
+                                    {value: 1000, size: 40},
+                                    {value: 10000, size: 80},
+                                    {value: 100000, size: 130}]
                             }
                         ]
                     },

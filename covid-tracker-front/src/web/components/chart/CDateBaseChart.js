@@ -48,7 +48,7 @@ class CDateBaseChart extends CComponent {
         this.setState({
             data: {datasets: datasets},
             dateMin: TDate.classicFormat(flatData[0].date),
-            dateMax: TDate.classicFormat(flatData[flatData.length - 1])
+            dateMax: TDate.classicFormat(flatData[flatData.length - 1].date)
         });
         this.props.loading(false, null);
     }
