@@ -76,7 +76,6 @@ class BlocLocations extends Component {
     }
 
     onLocationClick(location, isCountry, event) {
-        console.log(event);
         if (event) {
             event.stopPropagation();
             event.nativeEvent.stopImmediatePropagation();

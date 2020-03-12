@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import TDate from "../../../utils/TDate";
 import CComponent from "../CComponent";
+import TLogs from "../../../utils/TLogs";
 
 const propTypes = {
     width: PropTypes.number,
@@ -34,7 +35,7 @@ class CDateBaseChart extends CComponent {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.data !== prevProps.data) {
-            console.log("-- Chart Updating: ", this.props.data);
+            TLogs.p("-- Chart Updating: ", this.props.data);
             this.initializeData(this.props.data);
         }
     }

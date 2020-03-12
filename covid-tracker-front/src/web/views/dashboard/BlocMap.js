@@ -20,7 +20,7 @@ class BlocMap extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        //console.log("+++++++++ ref:", this.state.map, this.props.data, nextProps.data);
+        //TLogs.p("+++++++++ ref:", this.state.map, this.props.data, nextProps.data);
         if (this.state.map.current !== null && nextProps.data !== null && nextProps.data.length > 0) {
             if (!this.props.data || this.props.data.length === 0) {
                 this.state.map.current.create(nextProps.data, () => {

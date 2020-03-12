@@ -6,6 +6,7 @@ import {Library} from "../../../utils/storage/ImgLibrary";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import BookmarkStore from "../../../utils/storage/BookmarkStore";
 import TString from "../../../utils/TString";
+import TLogs from "../../../utils/TLogs";
 
 const propTypes = {
     date: PropTypes.string.isRequired,
@@ -27,9 +28,9 @@ class BlocHeader extends Component {
     }
 
     onBookmarkClick(marked) {
-        console.log("CLICKED: ", marked);
+        TLogs.p("CLICKED: ", marked);
         if (marked) {
-            console.log("DELETE: ", this.props.location);
+            TLogs.p("DELETE: ", this.props.location);
             BookmarkStore.deleteBookmark(this.props.location)
         } else {
             BookmarkStore.addBookmark(this.props.location)
@@ -52,8 +53,8 @@ class BlocHeader extends Component {
                         <div className="v-align">
                             <div id="b-header-t1">COVID-19 Tracker</div>
                             <div id="b-header-t2">&nbsp;by</div>
-                            <div id="b-header-t3"><a className="link-lab" href="http://draymlab.fr"
-                                                     target="draymlab.fr">DraymLab</a>
+                            <div id="b-header-t3"><a className="link-lab" href="https://github.com/Draym/Covid19Tracker"
+                                                     target="https://github.com/Draym/Covid19Tracker">DraymLab</a>
                             </div>
                             <div id="b-header-t4"> &copy; 2020.</div>
                         </div>

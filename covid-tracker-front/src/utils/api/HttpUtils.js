@@ -1,4 +1,5 @@
 import TString from "../TString";
+import TLogs from "../TLogs";
 
 let HttpUtils = function () {
 
@@ -24,24 +25,24 @@ let HttpUtils = function () {
     function triggerResultCallback(data, response, cbSuccess, cbError) {
         const status = response.status;
 
-        console.log("[HTTP]", response);
+        TLogs.p("[HTTP]", response);
         if (status === 200) {
-            console.log("[SUCCESS]-->", data);
+            TLogs.p("[SUCCESS]-->", data);
             cbSuccess(data);
         } else {
-            console.log("[ERROR]-->", data);
+            TLogs.p("[ERROR]-->", data);
             cbError(status, (data.message ? data.message : data));
         }
     }
 
     function handleHttpResultRedirect(response) {
-        console.log("[HTTP]", response);
-        console.log("Try Redirect to ", response.url);
+        TLogs.p("[HTTP]", response);
+        TLogs.p("Try Redirect to ", response.url);
         let url = response.url;
 
         /** ONLY REDIRECT ON LOGIN **/
         if (url.indexOf("/api/login") >= 0 && url.indexOf("?logout") === -1) {
-            console.log("Redirect done to ", url.replace("/api", "/auth"));
+            TLogs.p("Redirect done to ", url.replace("/api", "/auth"));
             window.location.href = url.replace("/api", "/auth");
         }
     }
@@ -58,7 +59,7 @@ let HttpUtils = function () {
             try {
                 data = JSON.parse(text)
             } catch (err) {
-                console.log("HttpResult: JSON err ->", err);
+                TLogs.p("HttpResult: JSON err ->", err);
             }
             triggerResultCallback(data, response, cbSuccess, cbError);
         });
@@ -74,7 +75,7 @@ let HttpUtils = function () {
             headers.Authorization = session.token.token;
         }*/
         let urlParameters = stringifyParameters(parameters);
-        console.log("[API_" + type + "]", createApiUrl(url, api, urlParameters));
+        TLogs.p("[API_" + type + "]", createApiUrl(url, api, urlParameters));
         fetch(createApiUrl(url, api, urlParameters), {
             method: type,
             headers: headers,
@@ -82,7 +83,7 @@ let HttpUtils = function () {
         }).then(response => {
             handleHttpResult(response, cbSuccess, cbError);
         }).catch(error => {
-            console.log("[FAIL]-->", error);
+            TLogs.p("[FAIL]-->", error);
             cbError(-1, error.message);
         });
     }
@@ -95,7 +96,7 @@ let HttpUtils = function () {
           if (session.token)
             headers.Authorization = session.token.token;
         }*/
-        console.log("[API_" + type + "]", createApiUrl(url, api), data);
+        TLogs.p("[API_" + type + "]", createApiUrl(url, api), data);
         fetch(createApiUrl(url, api), {
             method: type,
             headers: headers,
@@ -104,7 +105,7 @@ let HttpUtils = function () {
         }).then(response => {
             handleHttpResult(response, cbSuccess, cbError);
         }).catch(error => {
-            console.log("[FAIL]-->", error);
+            TLogs.p("[FAIL]-->", error);
             cbError(-1, error.message);
         });
     }
@@ -146,7 +147,7 @@ let HttpUtils = function () {
             for (const pair of formData) {
                 final.append(pair[0], pair[1]);
             }
-            console.log("Form: ", final);
+            TLogs.p("Form: ", final);
             httpData('POST', url, api, headers, final, cbSuccess, cbError);
         },
     });

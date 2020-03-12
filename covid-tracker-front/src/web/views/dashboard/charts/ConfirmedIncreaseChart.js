@@ -61,7 +61,6 @@ class ConfirmedIncreaseChart extends CDateLineChart {
     getCbTooltip() {
         return {
             label: function (tooltipItem, data) {
-                console.log("# ", tooltipItem, data);
                 const value = data['datasets'][tooltipItem.datasetIndex].data[tooltipItem.index].y;
                 if (tooltipItem.datasetIndex === 0) {
                     return " " + TPrettyNbr.pretify(value, ".") + " new cases"

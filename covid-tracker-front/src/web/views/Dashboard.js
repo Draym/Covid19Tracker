@@ -49,7 +49,6 @@ class Dashboard extends CDataLoader {
     }
 
     updateFocusedLocation(location) {
-        console.log("NEW LOCATION: ", location);
         this.setState({location: location});
     }
 

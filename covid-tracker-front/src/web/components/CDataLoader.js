@@ -1,6 +1,7 @@
 import HttpUtils from "../../utils/api/HttpUtils";
 import CComponent from "./CComponent";
 import TObject from "../../utils/TObject";
+import TLogs from "../../utils/TLogs";
 
 class CDataLoader extends CComponent {
     constructor(props) {
@@ -21,19 +22,19 @@ class CDataLoader extends CComponent {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        //console.log("-- " + this.state.cp_name + " TRY UPDATE", this.props.parameters, prevProps.parameters);
+        //TLogs.p("-- " + this.state.cp_name + " TRY UPDATE", this.props.parameters, prevProps.parameters);
 
         if (!TObject.isEqual(this.props.parameters, prevProps.parameters)) {
-            //console.log("## OK");
+            //TLogs.p("## OK");
             this.loadDataAndInitialize(this.props.parameters);
         } else if (!TObject.isEqual(this.state.parameters, prevState.parameters)) {
-            //console.log("## OK");
+            //TLogs.p("## OK");
             this.loadDataAndInitialize(this.state.parameters);
         }
     }
 
     componentDidMount() {
-        console.log("MOUNT LOAD");
+        TLogs.p("MOUNT LOAD");
         this.loadDataAndInitialize(this.getParameters());
     }
 
@@ -49,9 +50,9 @@ class CDataLoader extends CComponent {
 
     loadDataAndInitialize(parameters) {
         this.isLoading(true);
-        console.log("go: ", this.getEndpoint(), parameters);
+        TLogs.p("go: ", this.getEndpoint(), parameters);
         HttpUtils.GET(process.env.REACT_APP_SERVER_URL, this.getEndpoint(), parameters, function (data) {
-            console.log("OLA: ", this.getEndpoint(), data);
+            TLogs.p("OLA: ", this.getEndpoint(), data);
             if (data) {
                 this.initializeData(data);
             } else {

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {loadModules} from 'esri-loader';
 import TString from "../../utils/TString";
+import TLogs from "../../utils/TLogs";
 
 class CMap extends Component {
     constructor(props) {
@@ -112,7 +113,7 @@ class CMap extends Component {
                         }
                     ]
                 });
-                console.log("::::: CREATE MAP: ", this.graphics);
+                TLogs.p("::::: CREATE MAP: ", this.graphics);
                 this.map.layers.add(this.featureLayer);
                 this.view = new MapView({
                     container: this.mapRef.current,
@@ -126,12 +127,12 @@ class CMap extends Component {
 
     update(data) {
         let graphics = this.createGraphic(data);
-        //console.log("::::: EDIT MAP: ", graphics, this.graphics);
+        //TLogs.p("::::: EDIT MAP: ", graphics, this.graphics);
         this.featureLayer.applyEdits({
             deleteFeatures: this.graphics,
             addFeatures: graphics
         }).then(function (results) {
-            //console.log("Result EDIT:", results);
+            //TLogs.p("Result EDIT:", results);
             if (results.deleteFeatureResults.length > 0) {
             }
             if (results.addFeatureResults.length > 0) {

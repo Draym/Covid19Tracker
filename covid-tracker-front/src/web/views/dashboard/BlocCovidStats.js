@@ -35,7 +35,6 @@ class BlocCovidStats extends CDataLoader {
     }
 
     render() {
-        console.log("this.state: ", this.state);
         return [
             <CBlock key={0} cols="col-12 col-md-4" id="b-confirmed" loading={this.state.loading}>
                 <p className="b-title">Total Confirmed</p>
