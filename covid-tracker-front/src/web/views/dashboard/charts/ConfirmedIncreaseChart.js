@@ -49,7 +49,8 @@ class ConfirmedIncreaseChart extends CDateLineChart {
                 stepSize: null,
                 callback: function (value, index, values) {
                     return index % 3 === 0 || index === values.length - 1 ? TPrettyNbr.pretify(value) : null;
-                }
+                },
+                max: 100
             }
         });
         conf.tooltips.mode = "index";
