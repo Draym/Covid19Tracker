@@ -1,21 +1,16 @@
 package com.andres_k.web.covidtracker.services;
 
-import com.andres_k.web.covidtracker.dao.CovidDataRepository;
-import com.andres_k.web.covidtracker.dao.DataUpdatedRepository;
-import com.andres_k.web.covidtracker.dao.ValidDateRepository;
-import com.andres_k.web.covidtracker.dao.ValidLocationRepository;
+import com.andres_k.web.covidtracker.dao.*;
 import com.andres_k.web.covidtracker.models.CovidData;
 import com.andres_k.web.covidtracker.models.DataUpdated;
 import com.andres_k.web.covidtracker.models.ValidDate;
 import com.andres_k.web.covidtracker.models.ValidLocation;
-import com.andres_k.web.covidtracker.utils.Console;
 import com.andres_k.web.covidtracker.utils.data.APIEndpoint;
 import com.andres_k.web.covidtracker.utils.http.HttpClient;
 import com.andres_k.web.covidtracker.utils.tools.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class CovidUpdateService {
+    private final CovidTotalRepository covidTotalRepository;
     private final CovidDataRepository covidDataRepository;
     private final ValidDateRepository validDateRepository;
     private final ValidLocationRepository validLocationRepository;
@@ -31,7 +27,8 @@ public class CovidUpdateService {
     private final HttpClient httpClient;
 
     @Autowired
-    public CovidUpdateService(CovidDataRepository covidDataRepository, ValidDateRepository validDateRepository, ValidLocationRepository validLocationRepository, DataUpdatedRepository dataUpdatedRepository, HttpClient httpClient) {
+    public CovidUpdateService(CovidTotalRepository covidTotalRepository, CovidDataRepository covidDataRepository, ValidDateRepository validDateRepository, ValidLocationRepository validLocationRepository, DataUpdatedRepository dataUpdatedRepository, HttpClient httpClient) {
+        this.covidTotalRepository = covidTotalRepository;
         this.covidDataRepository = covidDataRepository;
         this.validDateRepository = validDateRepository;
         this.validLocationRepository = validLocationRepository;
@@ -57,7 +54,7 @@ public class CovidUpdateService {
         List<CovidData> archive = this.covidDataRepository.findAll();
         TFiles.writeInFile("covid_data_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy--HH-mm")), TJson.toString(archive));
         this.covidDataRepository.deleteAllWithQuery();
-
+        this.clearSavedTotal();
         this.saveValidLocations(data, true);
         this.saveValidDates(data, true);
         this.saveCovidData(data);
@@ -67,6 +64,10 @@ public class CovidUpdateService {
         List<CovidData> newEntries = data.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
         this.covidDataRepository.saveAll(newEntries);
         this.dataUpdatedRepository.save(new DataUpdated(LocalDateTime.now(), newEntries.size()));
+    }
+
+    public void clearSavedTotal() {
+        this.covidTotalRepository.deleteAllWithQuery();
     }
 
     private void saveValidLocations(Map<String, List<CovidData>> data, boolean reset) {

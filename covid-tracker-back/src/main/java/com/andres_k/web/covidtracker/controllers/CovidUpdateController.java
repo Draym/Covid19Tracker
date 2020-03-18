@@ -1,6 +1,5 @@
 package com.andres_k.web.covidtracker.controllers;
 
-import com.andres_k.web.covidtracker.models.DataUpdated;
 import com.andres_k.web.covidtracker.services.CovidUpdateService;
 import com.andres_k.web.covidtracker.utils.Console;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class CovidUpdateController {
         this.updateService = updateService;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/admin/update", method = RequestMethod.PUT)
     @ResponseBody
     public ResponseEntity<?> update() {
         try {
@@ -34,7 +33,7 @@ public class CovidUpdateController {
         }
     }
 
-    @RequestMapping(value = "/reset", method = RequestMethod.PUT)
+    @RequestMapping(value = "/admin/reset", method = RequestMethod.PUT)
     @ResponseBody
     public ResponseEntity<?> reset() {
         try {
