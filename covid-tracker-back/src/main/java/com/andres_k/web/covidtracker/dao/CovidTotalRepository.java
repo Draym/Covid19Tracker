@@ -12,8 +12,8 @@ import javax.transaction.Transactional;
 public interface CovidTotalRepository extends JpaRepository<CovidTotal, Long> {
     @Modifying
     @Transactional
-    @Query("delete from CovidTotal")
-    void deleteAllWithQuery();
+    @Query(nativeQuery = true, value = "delete from covid_total WHERE :date is NULL OR STR_TO_DATE(date, '%m/%d/%Y') > STR_TO_DATE(:date, '%m/%d/%Y')")
+    void deleteAllWithQuery(String date);
 
     CovidTotal findDistinctByDateAndStateAndCountry(String date, String state, String country);
 }

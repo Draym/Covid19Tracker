@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDateTime;
@@ -35,9 +36,9 @@ public class CovidUpdateController {
 
     @RequestMapping(value = "/admin/reset", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity<?> reset() {
+    public ResponseEntity<?> reset(@RequestParam(required = false) String date) {
         try {
-            this.updateService.resetData();
+            this.updateService.resetData(date);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception ex) {
             Console.log("[Update/reset]: " + ex.toString());

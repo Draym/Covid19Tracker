@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -39,13 +40,13 @@ public class CovidUpdateService {
     public void update() throws Exception {
         String lastEntry = this.validDateRepository.findTopDateOrderByDesc();
         Map<String, List<CovidData>> data = this.loadFullDataFromAPIs(TString.isNull(lastEntry) ? null : lastEntry);
-        this.saveValidLocations(data, false);
-        this.saveValidDates(data, false);
+        this.saveValidLocations(data);
+        this.saveValidDates(data, null, false);
         this.saveCovidData(data);
     }
 
-    public void resetData() throws Exception {
-        Map<String, List<CovidData>> data = this.loadFullDataFromAPIs(null);
+    public void resetData(String date) throws Exception {
+        Map<String, List<CovidData>> data = this.loadFullDataFromAPIs(date);
 
         if (data.isEmpty() || data.get(data.keySet().toArray()[0]).size() == 0) {
             return;
@@ -53,10 +54,10 @@ public class CovidUpdateService {
         // Archive
         List<CovidData> archive = this.covidDataRepository.findAll();
         TFiles.writeInFile("covid_data_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy--HH-mm")), TJson.toString(archive));
-        this.covidDataRepository.deleteAllWithQuery();
-        this.clearSavedTotal();
-        this.saveValidLocations(data, true);
-        this.saveValidDates(data, true);
+        this.covidDataRepository.deleteAllWithQuery(date);
+        this.clearSavedTotal(date);
+        this.saveValidLocations(data);
+        this.saveValidDates(data, date, true);
         this.saveCovidData(data);
     }
 
@@ -66,15 +67,21 @@ public class CovidUpdateService {
         this.dataUpdatedRepository.save(new DataUpdated(LocalDateTime.now(), newEntries.size()));
     }
 
-    public void clearSavedTotal() {
-        this.covidTotalRepository.deleteAllWithQuery();
+    public void clearSavedTotal(String date) {
+        this.covidTotalRepository.deleteAllWithQuery(date);
     }
 
-    private void saveValidLocations(Map<String, List<CovidData>> data, boolean reset) {
-        List<String> locations = new ArrayList<>(data.keySet());
-        if (reset) {
-            this.validLocationRepository.deleteAllWithQuery();
+    private void saveValidLocations(Map<String, List<CovidData>> data) {
+        List<ValidLocation> validLocations = this.validLocationRepository.findAll();
+        Map<String, Integer> dataLocations = data.keySet().stream()
+                .collect(Collectors.toMap(e -> e, e -> 1));
+        for (ValidLocation valid : validLocations) {
+            dataLocations.remove((valid.getLocation() == null ? "" : valid.getLocation()) + "_" + valid.getParent());
         }
+        if (dataLocations.size() == 0)
+            return;
+
+        List<String> locations = new ArrayList<>(dataLocations.keySet());
         Map<String, ValidLocation> newLocations = new HashMap<>();
         for (String location : locations) {
             String[] values = location.split("_");
@@ -84,16 +91,17 @@ public class CovidUpdateService {
                 newLocations.put(values[1], new ValidLocation(values[1], null, "country"));
             }
         }
+
         this.validLocationRepository.saveAll(new ArrayList<>(newLocations.values()));
     }
 
-    private void saveValidDates(Map<String, List<CovidData>> data, boolean reset) {
+    private void saveValidDates(Map<String, List<CovidData>> data, String date, boolean reset) {
         List<ValidDate> newDates = new ArrayList<>();
         for (CovidData item : data.get(data.keySet().toArray()[0])) {
             newDates.add(new ValidDate(item.getDate()));
         }
         if (reset) {
-            this.validDateRepository.deleteAllWithQuery();
+            this.validDateRepository.deleteAllWithQuery(date);
         }
         this.validDateRepository.saveAll(newDates);
     }

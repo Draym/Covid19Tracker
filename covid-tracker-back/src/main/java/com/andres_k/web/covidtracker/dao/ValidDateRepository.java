@@ -15,8 +15,8 @@ public interface ValidDateRepository extends JpaRepository<ValidDate, Long> {
 
     @Modifying
     @Transactional
-    @Query("delete from ValidDate")
-    void deleteAllWithQuery();
+    @Query(nativeQuery = true, value = "delete from valid_date WHERE :date is NULL OR STR_TO_DATE(date, '%m/%d/%Y') > STR_TO_DATE(:date, '%m/%d/%Y')")
+    void deleteAllWithQuery(String date);
 
     boolean existsByDate(String date);
 

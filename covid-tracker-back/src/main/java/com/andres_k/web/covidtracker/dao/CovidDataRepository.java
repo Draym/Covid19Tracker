@@ -13,8 +13,8 @@ import java.util.List;
 public interface CovidDataRepository extends JpaRepository<CovidData, Long> {
     @Modifying
     @Transactional
-    @Query("delete from CovidData")
-    void deleteAllWithQuery();
+    @Query(nativeQuery = true, value = "delete from covid_data WHERE :date is NULL OR STR_TO_DATE(date, '%m/%d/%Y') > STR_TO_DATE(:date, '%m/%d/%Y')")
+    void deleteAllWithQuery(String date);
 
     CovidData findDistinctByDateAndStateAndCountry(String date, String state, String country);
 
