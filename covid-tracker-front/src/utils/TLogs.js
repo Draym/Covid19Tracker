@@ -1,10 +1,10 @@
 class TLogs {
-    static p(data) {
+    static p(...logs) {
         if (process.env.NODE_ENV === 'production') {
             return;
         }
-        console.log(data);
+        console.log(...logs);
     }
-};
+}
 
 export default TLogs;

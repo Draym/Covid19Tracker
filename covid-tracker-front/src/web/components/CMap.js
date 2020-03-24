@@ -61,11 +61,9 @@ class CMap extends Component {
                                 type: "size",
                                 field: "CONFIRMED",
                                 stops: [{value: 1, size: 3},
-                                    {value: 100, size: 15},
-                                    {value: 500, size: 25},
-                                    {value: 1000, size: 40},
-                                    {value: 10000, size: 80},
-                                    {value: 100000, size: 130}]
+                                    {value: 100, size: 10},
+                                    {value: 1000, size: 25},
+                                    {value: 100000, size: 100}]
                             }
                         ]
                     },
@@ -118,8 +116,8 @@ class CMap extends Component {
                 this.view = new MapView({
                     container: this.mapRef.current,
                     map: this.map,
-                    center: [80, 30],
-                    zoom: 3
+                    center: [50, 30],
+                    zoom: 2
                 });
                 cb();
             });
