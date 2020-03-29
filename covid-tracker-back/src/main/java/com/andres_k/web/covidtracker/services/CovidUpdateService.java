@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -63,6 +62,22 @@ public class CovidUpdateService {
 
     private void saveCovidData(Map<String, List<CovidData>> data) {
         List<CovidData> newEntries = data.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
+        /*
+        for (CovidData entry : newEntries) {
+            if (entry.getDeath() == null
+                    || entry.getRecovered() == null
+                    || entry.getConfirmed() == null
+                    || entry.getDate() == null
+                    || entry.getCountry() == null
+                    || entry.getCountry().length() > 255
+                    || entry.getState() == null
+                    || entry.getState().length() > 255
+                    || entry.getLatitude() == null
+                    || entry.getLongitude() == null) {
+                Console.log("error bad entry");
+            }
+        }*/
+
         this.covidDataRepository.saveAll(newEntries);
         this.dataUpdatedRepository.save(new DataUpdated(LocalDateTime.now(), newEntries.size()));
     }

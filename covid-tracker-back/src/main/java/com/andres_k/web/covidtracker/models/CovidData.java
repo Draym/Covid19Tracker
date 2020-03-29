@@ -46,6 +46,9 @@ public class CovidData {
         this.longitude = longitude;
         this.latitude = latitude;
         this.date = date;
+        this.death = 0;
+        this.confirmed = 0;
+        this.recovered = 0;
     }
 
     public void setValue(String key, Integer value) {
